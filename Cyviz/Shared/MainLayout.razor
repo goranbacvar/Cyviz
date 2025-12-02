@@ -1,0 +1,32 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>Cyviz</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="@DeveloperLink" target="_blank" rel="noopener noreferrer">Developed by Goran Bacvar</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code {
+    private string DeveloperLink => Cyviz.Application.LicenseValidator.GetDeveloperLink();
+    
+    protected override void OnInitialized()
+    {
+        // Validate license on every page load
+        if (!Cyviz.Application.LicenseValidator.ValidateLicense(DeveloperLink))
+        {
+            throw new InvalidOperationException("Application license validation failed.");
+        }
+    }
+}

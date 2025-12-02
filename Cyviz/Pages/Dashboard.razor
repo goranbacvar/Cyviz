@@ -1,0 +1,506 @@
+﻿@page "/dashboard"
+@inject IDbContextFactory<AppDbContext> DbFactory
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<PageTitle>Device Dashboard</PageTitle>
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>🎛️ Device Control Dashboard</h1>
+        <div class="header-actions">
+            <span class="connection-status @(hubConnection?.State == HubConnectionState.Connected ? "connected" : "disconnected")">
+                @(hubConnection?.State == HubConnectionState.Connected ? "🟢 Connected" : "🔴 Disconnected")
+            </span>
+            <span class="device-count">Devices: @filteredDevices.Count</span>
+        </div>
+    </div>
+
+    <div class="dashboard-content">
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label>🔍 Search:</label>
+                <input type="text" @bind="searchTerm" @bind:event="oninput" 
+                       placeholder="Search by name or location..." class="form-control" />
+            </div>
+            
+            <div class="filter-group">
+                <label>📊 Status:</label>
+                <select @bind="statusFilter" class="form-control">
+                    <option value="">All Statuses</option>
+                    <option value="Online">Online</option>
+                    <option value="Offline">Offline</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>🔧 Type:</label>
+                <select @bind="typeFilter" class="form-control">
+                    <option value="">All Types</option>
+                    <option value="Display">Display</option>
+                    <option value="Codec">Codec</option>
+                    <option value="Switcher">Switcher</option>
+                    <option value="Sensor">Sensor</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <button class="btn btn-primary" @onclick="ApplyFilters">Apply Filters</button>
+                <button class="btn btn-secondary" @onclick="ResetFilters">Reset</button>
+            </div>
+        </div>
+
+        <!-- Devices Table -->
+        <div class="devices-table-container">
+            @if (isLoading)
+            {
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading devices...</p>
+                </div>
+            }
+            else if (!filteredDevices.Any())
+            {
+                <div class="no-devices">
+                    <p>📭 No devices found matching your criteria</p>
+                </div>
+            }
+            else
+            {
+                <table class="devices-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th @onclick='() => SortBy("Name")' class="sortable">
+                                Name @GetSortIcon("Name")
+                            </th>
+                            <th @onclick='() => SortBy("Type")' class="sortable">
+                                Type @GetSortIcon("Type")
+                            </th>
+                            <th>Location</th>
+                            <th>Last Seen</th>
+                            <th>Firmware</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var device in GetPagedDevices())
+                        {
+                            <tr class="device-row @(selectedDevice?.Id == device.Id ? "selected" : "")"
+                                @onclick="() => SelectDevice(device)">
+                                <td>
+                                    <span class="status-badge @GetStatusClass(device.Status)">
+                                        @(device.Status == DeviceStatus.Online ? "🟢" : "🔴") @device.Status
+                                    </span>
+                                </td>
+                                <td class="device-name">@device.Name</td>
+                                <td>
+                                    <span class="type-badge">@GetTypeIcon(device.Type) @device.Type</span>
+                                </td>
+                                <td>@device.Location</td>
+                                <td>
+                                    @if (device.LastSeenUtc.HasValue)
+                                    {
+                                        <span title="@device.LastSeenUtc.Value.ToString("yyyy-MM-dd HH:mm:ss UTC")">
+                                            @FormatTimeAgo(device.LastSeenUtc.Value)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Never</span>
+                                    }
+                                </td>
+                                <td>@device.Firmware</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" @onclick="() => SelectDevice(device)" @onclick:stopPropagation="true">
+                                        Details
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <!-- Keyset Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        Showing @Math.Min((currentPage * pageSize) + 1, filteredDevices.Count) 
+                        to @Math.Min((currentPage + 1) * pageSize, filteredDevices.Count) 
+                        of @filteredDevices.Count devices
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm" @onclick="PreviousPage" disabled="@(currentPage == 0)">
+                            ← Previous
+                        </button>
+                        <span class="page-indicator">Page @(currentPage + 1) of @totalPages</span>
+                        <button class="btn btn-sm" @onclick="NextPage" disabled="@(currentPage >= totalPages - 1)">
+                            Next →
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Device Detail Drawer -->
+    @if (selectedDevice != null)
+    {
+        <div class="drawer-overlay @(isDrawerOpen ? "open" : "")" @onclick="CloseDrawer"></div>
+        <div class="device-drawer @(isDrawerOpen ? "open" : "")">
+            <DeviceDetailDrawer 
+                Device="selectedDevice" 
+                OnClose="CloseDrawer" 
+                OnCommandSent="HandleCommandSent"
+                OnNotification="HandleNotification" />
+        </div>
+    }
+
+    <!-- Toast Notifications -->
+    <div class="toast-container">
+        @foreach (var notification in notifications)
+        {
+            <div class="toast @notification.Type @(notification.IsVisible ? "show" : "")"
+                 style="animation-delay: @(notification.Index * 0.1)s">
+                <div class="toast-header">
+                    <strong>@notification.Icon @notification.Title</strong>
+                    <button class="close-btn" @onclick="() => RemoveNotification(notification)">×</button>
+                </div>
+                <div class="toast-body">
+                    @notification.Message
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private List<Device> allDevices = new();
+    private List<Device> filteredDevices = new();
+    private Device? selectedDevice;
+    private bool isDrawerOpen = false;
+    private bool isLoading = true;
+
+    // Filters
+    private string searchTerm = "";
+    private string statusFilter = "";
+    private string typeFilter = "";
+
+    // Sorting
+    private string sortColumn = "Name";
+    private bool sortAscending = true;
+
+    // Pagination
+    private int currentPage = 0;
+    private int pageSize = 10;
+    private int totalPages => (int)Math.Ceiling((double)filteredDevices.Count / pageSize);
+
+    // SignalR
+    private HubConnection? hubConnection;
+
+    // Notifications
+    private List<ToastNotification> notifications = new();
+    private int notificationCounter = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDevices();
+        await SetupSignalR();
+        isLoading = false;
+    }
+
+    private async Task LoadDevices()
+    {
+        await using var db = await DbFactory.CreateDbContextAsync();
+        allDevices = await db.Devices
+            .AsNoTracking()
+            .OrderBy(d => d.Name)
+            .ToListAsync();
+        
+        ApplyFilters();
+    }
+
+    private async Task SetupSignalR()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/controlhub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        // Device status changed
+        hubConnection.On<string, DeviceStatus>("DeviceStatusChanged", async (deviceId, status) =>
+        {
+            var device = allDevices.FirstOrDefault(d => d.Id == deviceId);
+            if (device != null)
+            {
+                var oldStatus = device.Status;
+                device.Status = status;
+                device.LastSeenUtc = DateTime.UtcNow;
+
+                if (oldStatus != status)
+                {
+                    ShowNotification(
+                        $"Device {device.Name}",
+                        $"Status changed: {oldStatus} → {status}",
+                        status == DeviceStatus.Online ? "success" : "warning"
+                    );
+                }
+
+                ApplyFilters();
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+
+        // Command completed
+        hubConnection.On<DeviceCommand>("CommandCompleted", async (command) =>
+        {
+            var device = allDevices.FirstOrDefault(d => d.Id == command.DeviceId);
+            if (device != null)
+            {
+                if (command.Status == "Completed")
+                {
+                    ShowNotification(
+                        "✅ Command Completed",
+                        $"{device.Name}: {command.Command} ({command.LatencyMs}ms)",
+                        "success"
+                    );
+                }
+                else if (command.Status == "Failed")
+                {
+                    ShowNotification(
+                        "❌ Command Failed",
+                        $"{device.Name}: {command.Command} - {command.Result}",
+                        "error"
+                    );
+                }
+
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+
+        // Telemetry received (update last seen)
+        hubConnection.On<DeviceTelemetry>("DeviceTelemetryReceived", async (telemetry) =>
+        {
+            var device = allDevices.FirstOrDefault(d => d.Id == telemetry.DeviceId);
+            if (device != null)
+            {
+                device.LastSeenUtc = telemetry.TimestampUtc;
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+
+        hubConnection.Reconnecting += error =>
+        {
+            InvokeAsync(() => ShowNotification("Connection Lost", "Attempting to reconnect...", "warning"));
+            return Task.CompletedTask;
+        };
+
+        hubConnection.Reconnected += connectionId =>
+        {
+            InvokeAsync(() => ShowNotification("Reconnected", "Connection restored successfully", "success"));
+            return Task.CompletedTask;
+        };
+
+        await hubConnection.StartAsync();
+    }
+
+    private void ApplyFilters()
+    {
+        filteredDevices = allDevices.Where(d =>
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var search = searchTerm.ToLower();
+                if (!d.Name.ToLower().Contains(search) && 
+                    !d.Location.ToLower().Contains(search))
+                    return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(statusFilter))
+            {
+                if (d.Status.ToString() != statusFilter)
+                    return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(typeFilter))
+            {
+                if (d.Type.ToString() != typeFilter)
+                    return false;
+            }
+
+            return true;
+        }).ToList();
+
+        ApplySorting();
+        currentPage = 0; // Reset to first page
+    }
+
+    private void ResetFilters()
+    {
+        searchTerm = "";
+        statusFilter = "";
+        typeFilter = "";
+        ApplyFilters();
+    }
+
+    private void SortBy(string column)
+    {
+        if (sortColumn == column)
+        {
+            sortAscending = !sortAscending;
+        }
+        else
+        {
+            sortColumn = column;
+            sortAscending = true;
+        }
+        ApplySorting();
+    }
+
+    private void ApplySorting()
+    {
+        filteredDevices = sortColumn switch
+        {
+            "Name" => sortAscending 
+                ? filteredDevices.OrderBy(d => d.Name).ToList()
+                : filteredDevices.OrderByDescending(d => d.Name).ToList(),
+            "Type" => sortAscending
+                ? filteredDevices.OrderBy(d => d.Type).ToList()
+                : filteredDevices.OrderByDescending(d => d.Type).ToList(),
+            _ => filteredDevices
+        };
+    }
+
+    private string GetSortIcon(string column)
+    {
+        if (sortColumn != column) return "⇅";
+        return sortAscending ? "↑" : "↓";
+    }
+
+    private IEnumerable<Device> GetPagedDevices()
+    {
+        return filteredDevices
+            .Skip(currentPage * pageSize)
+            .Take(pageSize);
+    }
+
+    private void NextPage()
+    {
+        if (currentPage < totalPages - 1)
+        {
+            currentPage++;
+        }
+    }
+
+    private void PreviousPage()
+    {
+        if (currentPage > 0)
+        {
+            currentPage--;
+        }
+    }
+
+    private void SelectDevice(Device device)
+    {
+        selectedDevice = device;
+        isDrawerOpen = true;
+    }
+
+    private void CloseDrawer()
+    {
+        isDrawerOpen = false;
+        selectedDevice = null;
+    }
+
+    private async Task HandleCommandSent()
+    {
+        await LoadDevices();
+    }
+
+    private void HandleNotification((string Title, string Message, string Type) notification)
+    {
+        ShowNotification(notification.Title, notification.Message, notification.Type);
+    }
+
+    private void ShowNotification(string title, string message, string type)
+    {
+        var notification = new ToastNotification
+        {
+            Id = ++notificationCounter,
+            Index = notifications.Count,
+            Title = title,
+            Message = message,
+            Type = type,
+            Icon = type switch
+            {
+                "success" => "✅",
+                "error" => "❌",
+                "warning" => "⚠️",
+                "info" => "ℹ️",
+                _ => "📢"
+            },
+            IsVisible = true
+        };
+
+        notifications.Add(notification);
+        StateHasChanged();
+
+        // Auto-remove after 5 seconds
+        _ = Task.Delay(5000).ContinueWith(_ =>
+        {
+            InvokeAsync(() => RemoveNotification(notification));
+        });
+    }
+
+    private void RemoveNotification(ToastNotification notification)
+    {
+        notifications.Remove(notification);
+        StateHasChanged();
+    }
+
+    private string GetStatusClass(DeviceStatus status)
+    {
+        return status == DeviceStatus.Online ? "status-online" : "status-offline";
+    }
+
+    private string GetTypeIcon(DeviceType type)
+    {
+        return type switch
+        {
+            DeviceType.Display => "🖥️",
+            DeviceType.Codec => "📹",
+            DeviceType.Switcher => "🔀",
+            DeviceType.Sensor => "📡",
+            _ => "🔧"
+        };
+    }
+
+    private string FormatTimeAgo(DateTime dateTime)
+    {
+        var timeSpan = DateTime.UtcNow - dateTime;
+        if (timeSpan.TotalSeconds < 60) return $"{(int)timeSpan.TotalSeconds}s ago";
+        if (timeSpan.TotalMinutes < 60) return $"{(int)timeSpan.TotalMinutes}m ago";
+        if (timeSpan.TotalHours < 24) return $"{(int)timeSpan.TotalHours}h ago";
+        return $"{(int)timeSpan.TotalDays}d ago";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+
+    private class ToastNotification
+    {
+        public int Id { get; set; }
+        public int Index { get; set; }
+        public string Title { get; set; } = "";
+        public string Message { get; set; } = "";
+        public string Type { get; set; } = "info";
+        public string Icon { get; set; } = "📢";
+        public bool IsVisible { get; set; }
+    }
+}

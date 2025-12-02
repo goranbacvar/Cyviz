@@ -1,0 +1,152 @@
+@using System.Globalization
+
+<div class="telemetry-chart">
+    @if (Data.Any())
+    {
+        <div class="chart-legend">
+            <div class="legend-item">
+                <span class="legend-color temperature"></span>
+                <span>Temperature (°C)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color cpu"></span>
+                <span>CPU Usage (%)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color memory"></span>
+                <span>Memory Usage (%)</span>
+            </div>
+        </div>
+
+        <svg class="chart-svg" viewBox="0 0 800 300" preserveAspectRatio="xMidYMid meet">
+            <!-- Grid lines -->
+            <g class="grid">
+                @for (int i = 0; i <= 5; i++)
+                {
+                    var y = 50 + (200.0 / 5 * i);
+                    var value = 100 - (i * 20);
+                    <line x1="60" y1="@y" x2="780" y2="@y" stroke="#e0e0e0" stroke-width="1"/>
+                    @((MarkupString)$"<text x='45' y='{y + 5}' text-anchor='end' font-size='12' fill='#666'>{value}</text>")
+                }
+            </g>
+
+            <!-- Time axis -->
+            <g class="time-axis">
+                @for (int i = 0; i < Math.Min(6, Data.Count); i++)
+                {
+                    var index = (Data.Count - 1) * i / Math.Max(5, 5);
+                    if (index < Data.Count)
+                    {
+                        var x = 60 + (720.0 / (Data.Count - 1) * index);
+                        var time = Data[index].Timestamp.ToString("HH:mm:ss");
+                        @((MarkupString)$"<text x='{x}' y='270' text-anchor='middle' font-size='11' fill='#666'>{time}</text>")
+                    }
+                }
+            </g>
+
+            <!-- Temperature line -->
+            <polyline 
+                points="@GetPolylinePoints(d => d.Temperature, 0, 100)" 
+                fill="none" 
+                stroke="#ef4444" 
+                stroke-width="2.5"/>
+
+            <!-- CPU line -->
+            <polyline 
+                points="@GetPolylinePoints(d => d.CpuUsage, 0, 100)" 
+                fill="none" 
+                stroke="#3b82f6" 
+                stroke-width="2.5"/>
+
+            <!-- Memory line -->
+            <polyline 
+                points="@GetPolylinePoints(d => d.MemoryUsage, 0, 100)" 
+                fill="none" 
+                stroke="#10b981" 
+                stroke-width="2.5"/>
+
+            <!-- Data points -->
+            @foreach (var (point, index) in Data.Select((p, i) => (p, i)))
+            {
+                var x = GetX(index);
+                var yTemp = GetY(point.Temperature, 0, 100);
+                var yCpu = GetY(point.CpuUsage, 0, 100);
+                var yMem = GetY(point.MemoryUsage, 0, 100);
+
+                <circle cx="@x" cy="@yTemp" r="3" fill="#ef4444" opacity="0.7"/>
+                <circle cx="@x" cy="@yCpu" r="3" fill="#3b82f6" opacity="0.7"/>
+                <circle cx="@x" cy="@yMem" r="3" fill="#10b981" opacity="0.7"/>
+            }
+
+            <!-- Axis labels -->
+            @((MarkupString)"<text x='400' y='295' text-anchor='middle' font-size='14' fill='#333' font-weight='bold'>Time</text>")
+            @((MarkupString)"<text x='20' y='150' text-anchor='middle' font-size='14' fill='#333' font-weight='bold' transform='rotate(-90 20 150)'>Value</text>")
+        </svg>
+
+        <!-- Current values -->
+        <div class="current-values">
+            @if (Data.Any())
+            {
+                var latest = Data.Last();
+                <div class="value-item temperature">
+                    <label>??? Temperature:</label>
+                    <span>@latest.Temperature.ToString("F1")°C</span>
+                </div>
+                <div class="value-item cpu">
+                    <label>?? CPU:</label>
+                    <span>@latest.CpuUsage.ToString("F1")%</span>
+                </div>
+                <div class="value-item memory">
+                    <label>?? Memory:</label>
+                    <span>@latest.MemoryUsage.ToString("F1")%</span>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-data-chart">
+            <p>?? Waiting for telemetry data...</p>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public List<DeviceDetailDrawer.TelemetryDataPoint> Data { get; set; } = new();
+
+    private const double ChartLeft = 60;
+    private const double ChartRight = 780;
+    private const double ChartTop = 50;
+    private const double ChartBottom = 250;
+    private const double ChartWidth = ChartRight - ChartLeft;
+    private const double ChartHeight = ChartBottom - ChartTop;
+
+    private string GetPolylinePoints(Func<DeviceDetailDrawer.TelemetryDataPoint, double> selector, double min, double max)
+    {
+        if (!Data.Any()) return "";
+
+        var points = Data.Select((point, index) =>
+        {
+            var x = GetX(index);
+            var y = GetY(selector(point), min, max);
+            return $"{x.ToString(CultureInfo.InvariantCulture)},{y.ToString(CultureInfo.InvariantCulture)}";
+        });
+
+        return string.Join(" ", points);
+    }
+
+    private double GetX(int index)
+    {
+        if (Data.Count <= 1) return ChartLeft + ChartWidth / 2;
+        return ChartLeft + (ChartWidth * index / (Data.Count - 1));
+    }
+
+    private double GetY(double value, double min, double max)
+    {
+        var range = max - min;
+        if (range == 0) return ChartTop + ChartHeight / 2;
+        
+        var normalized = (value - min) / range;
+        return ChartBottom - (normalized * ChartHeight);
+    }
+}

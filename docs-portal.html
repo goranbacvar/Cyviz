@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyviz Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: #667eea;
+        }
+        
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        
+        .card p {
+            color: #6c757d;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .badge-beginner { background: #28a745; color: white; }
+        .badge-intermediate { background: #ffc107; color: #333; }
+        .badge-advanced { background: #dc3545; color: white; }
+        .badge-all { background: #6c757d; color: white; }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .concept-box {
+            background: #e7f3ff;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .concept-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f8;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #6c757d;
+        }
+        
+        .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>?? Cyviz Documentation</h1>
+            <p>Complete Guide to Blazor Server Database Communication</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>?? Start Here</h2>
+                <div class="concept-box">
+                    <h3>The Golden Rule</h3>
+                    <p>In Blazor Server, <strong>all C# code runs on the SERVER</strong>, not in the browser.</p>
+                    <pre>Browser (HTML only) ??SignalR?? Server (C# code) ??EF Core?? SQLite</pre>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>?? Quick Links</h2>
+                <div class="quick-links">
+                    <div class="card">
+                        <div class="icon">?</div>
+                        <h3>START-HERE.md</h3>
+                        <span class="badge badge-all">All Levels</span>
+                        <p>Your starting point. Choose your learning path and get coding in 5 minutes.</p>
+                        <a href="START-HERE.md" class="btn">Get Started ?</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="icon">??</div>
+                        <h3>Cheat Sheet</h3>
+                        <span class="badge badge-all">All Levels</span>
+                        <span class="badge badge-beginner">5 min</span>
+                        <p>Quick reference card with all patterns, tips, and commands.</p>
+                        <a href="docs/CHEAT-SHEET.md" class="btn">View Cheat Sheet ?</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="icon">??</div>
+                        <h3>Quick Reference</h3>
+                        <span class="badge badge-beginner">Beginner</span>
+                        <span class="badge badge-beginner">10 min</span>
+                        <p>6 copy-paste code patterns for common tasks (CRUD, real-time, search).</p>
+                        <a href="docs/QUICK-REFERENCE.md" class="btn">View Examples ?</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="icon">??</div>
+                        <h3>Visual Flow</h3>
+                        <span class="badge badge-beginner">Beginner</span>
+                        <span class="badge badge-beginner">15 min</span>
+                        <p>Step-by-step diagrams showing data journey from browser to database.</p>
+                        <a href="docs/VISUAL-FLOW.md" class="btn">View Diagrams ?</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="icon">??</div>
+                        <h3>Data Flow Guide</h3>
+                        <span class="badge badge-intermediate">Intermediate</span>
+                        <span class="badge badge-intermediate">30 min</span>
+                        <p>Complete explanation of Blazor Server architecture and patterns.</p>
+                        <a href="docs/DATA-FLOW.md" class="btn">Learn More ?</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="icon">???</div>
+                        <h3>Architecture</h3>
+                        <span class="badge badge-advanced">Advanced</span>
+                        <span class="badge badge-advanced">45 min</span>
+                        <p>System architecture with 20+ diagrams and deep technical details.</p>
+                        <a href="docs/ARCHITECTURE-DIAGRAMS.md" class="btn">View Architecture ?</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="icon">???</div>
+                        <h3>Documentation Index</h3>
+                        <span class="badge badge-all">All Levels</span>
+                        <p>Complete navigation hub with all links, topics, and use cases.</p>
+                        <a href="docs/INDEX.md" class="btn">Browse Index ?</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="icon">??</div>
+                        <h3>Project README</h3>
+                        <span class="badge badge-all">All Levels</span>
+                        <span class="badge badge-beginner">10 min</span>
+                        <p>Project overview, quick start, API reference, and troubleshooting.</p>
+                        <a href="README.md" class="btn">View README ?</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>?? Learning Paths</h2>
+                
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3>?? Path 1: Quick Start (30 minutes)</h3>
+                    <p><strong>For developers who want to code immediately</strong></p>
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        <li><a href="docs/CHEAT-SHEET.md">Cheat Sheet</a> (5 min)</li>
+                        <li><a href="docs/QUICK-REFERENCE.md">Quick Reference</a> (10 min)</li>
+                        <li><a href="docs/VISUAL-FLOW.md">Visual Flow</a> (10 min)</li>
+                        <li>Start coding! (5 min)</li>
+                    </ol>
+                </div>
+                
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3>?? Path 2: Complete Understanding (1.5 hours)</h3>
+                    <p><strong>For developers who want solid knowledge</strong></p>
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        <li><a href="docs/VISUAL-FLOW.md">Visual Flow</a> (15 min)</li>
+                        <li><a href="docs/DATA-FLOW.md">Data Flow Guide</a> (45 min)</li>
+                        <li><a href="docs/QUICK-REFERENCE.md">Quick Reference</a> (15 min)</li>
+                        <li>Practice examples (15 min)</li>
+                    </ol>
+                </div>
+                
+                <div class="card">
+                    <h3>?? Path 3: Expert Level (3 hours)</h3>
+                    <p><strong>For developers who want to master the system</strong></p>
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        <li><a href="docs/VISUAL-FLOW.md">Visual Flow</a> (15 min)</li>
+                        <li><a href="docs/DATA-FLOW.md">Data Flow Guide</a> (45 min)</li>
+                        <li><a href="docs/ARCHITECTURE-DIAGRAMS.md">Architecture Diagrams</a> (60 min)</li>
+                        <li><a href="docs/QUICK-REFERENCE.md">Quick Reference</a> (15 min)</li>
+                        <li>Build a feature (45 min)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>?? Quick Access by Topic</h2>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #667eea; color: white;">
+                            <th style="padding: 10px; text-align: left;">I want to...</th>
+                            <th style="padding: 10px; text-align: left;">Go to...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;">Display data from database</td>
+                            <td style="padding: 10px;"><a href="docs/QUICK-REFERENCE.md#pattern-1-read-only-list">Quick Reference - Pattern 1</a></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Create a form to add data</td>
+                            <td style="padding: 10px;"><a href="docs/QUICK-REFERENCE.md#pattern-2-create-form">Quick Reference - Pattern 2</a></td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;">Edit existing data</td>
+                            <td style="padding: 10px;"><a href="docs/QUICK-REFERENCE.md#pattern-3-edit-form-with-parameter">Quick Reference - Pattern 3</a></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Add real-time updates</td>
+                            <td style="padding: 10px;"><a href="docs/QUICK-REFERENCE.md#pattern-5-real-time-updates-with-signalr">Quick Reference - Pattern 5</a></td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;">Understand how it all works</td>
+                            <td style="padding: 10px;"><a href="docs/VISUAL-FLOW.md">Visual Flow</a></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Debug an issue</td>
+                            <td style="padding: 10px;"><a href="docs/QUICK-REFERENCE.md#common-pitfalls">Quick Reference - Troubleshooting</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2>?? Essential Code Pattern</h2>
+                <pre><code>@page "/devices"
+@inject IDbContextFactory&lt;AppDbContext&gt; DbFactory
+
+&lt;h1&gt;Devices&lt;/h1&gt;
+
+@foreach (var device in devices)
+{
+    &lt;div&gt;@device.Name&lt;/div&gt;
+}
+
+@code {
+    private List&lt;Device&gt; devices = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await using var db = await DbFactory.CreateDbContextAsync();
+        devices = await db.Devices.ToListAsync();
+    }
+}</code></pre>
+                <p><strong>Remember:</strong> This code runs entirely on the server. The browser only sees the rendered HTML.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>?? <strong>Documentation Location:</strong> <code>/docs/</code> folder</p>
+            <p>?? <strong>Start Here:</strong> <a href="START-HERE.md">START-HERE.md</a></p>
+            <p>?? <strong>Need Help?</strong> Check the <a href="docs/INDEX.md">Documentation Index</a></p>
+            <p style="margin-top: 20px;">Built with ?? using Blazor Server, SignalR, and Entity Framework Core</p>
+        </div>
+    </div>
+</body>
+</html>

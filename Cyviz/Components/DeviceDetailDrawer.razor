@@ -1,0 +1,503 @@
+@inject IDbContextFactory<AppDbContext> DbFactory
+@inject NavigationManager Navigation
+@inject CommandRouter CommandRouter
+@implements IAsyncDisposable
+
+<div class="drawer-header">
+    <h2>@Device.Name</h2>
+    <button class="close-button" @onclick="OnClose">?</button>
+</div>
+
+<div class="drawer-body">
+    <!-- Device Info Section -->
+    <div class="info-section">
+        <h3>?? Device Information</h3>
+        <div class="info-grid">
+            <div class="info-item">
+                <label>ID:</label>
+                <span class="value">@Device.Id</span>
+            </div>
+            <div class="info-item">
+                <label>Type:</label>
+                <span class="value">@GetTypeIcon(Device.Type) @Device.Type</span>
+            </div>
+            <div class="info-item">
+                <label>Status:</label>
+                <span class="value status-badge @GetStatusClass(Device.Status)">
+                    @((MarkupString)(Device.Status == DeviceStatus.Online ? "&#x1F7E2;" : "&#x1F534;")) @Device.Status
+                </span>
+            </div>
+            <div class="info-item">
+                <label>Protocol:</label>
+                <span class="value">@Device.Protocol</span>
+            </div>
+            <div class="info-item">
+                <label>Location:</label>
+                <span class="value">@Device.Location</span>
+            </div>
+            <div class="info-item">
+                <label>Firmware:</label>
+                <span class="value">@Device.Firmware</span>
+            </div>
+            <div class="info-item">
+                <label>Last Seen:</label>
+                <span class="value">
+                    @if (Device.LastSeenUtc.HasValue)
+                    {
+                        @Device.LastSeenUtc.Value.ToString("yyyy-MM-dd HH:mm:ss UTC")
+                    }
+                    else
+                    {
+                        <span class="text-muted">Never</span>
+                    }
+                </span>
+            </div>
+            <div class="info-item full-width">
+                <label>Capabilities:</label>
+                <span class="value">
+                    @foreach (var cap in Device.Capabilities)
+                    {
+                        <span class="capability-badge">@cap</span>
+                    }
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Telemetry Chart Section -->
+    <div class="telemetry-section">
+        <div class="section-header">
+            <h3>?? Live Telemetry (Last Minute)</h3>
+            <button class="btn btn-sm" @onclick="RefreshTelemetry">?? Refresh</button>
+        </div>
+
+        @if (telemetryData.Any())
+        {
+            <div class="chart-container">
+                <TelemetryChart Data="telemetryData" />
+            </div>
+        }
+        else
+        {
+            <div class="no-data">
+                <p>?? No telemetry data available</p>
+            </div>
+        }
+    </div>
+
+    <!-- Command Form Section -->
+    <div class="command-section">
+        <h3>? Send Command</h3>
+        
+        <div class="form-group">
+            <label>Command:</label>
+            <select @bind="selectedCommand" class="form-control">
+                <option value="">-- Select Command --</option>
+                @foreach (var cap in Device.Capabilities)
+                {
+                    <option value="@cap">@cap</option>
+                }
+                <option value="STATUS">STATUS (Get Status)</option>
+                <option value="RESET">RESET</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Idempotency Key:</label>
+            <div class="idempotency-group">
+                <input type="text" @bind="idempotencyKey" class="form-control" readonly />
+                <button class="btn btn-secondary" @onclick="GenerateNewKey">?? New Key</button>
+            </div>
+            <small class="form-text">Use same key to safely retry commands</small>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary" @onclick="SendCommand" disabled="@(string.IsNullOrEmpty(selectedCommand) || isSending)">
+                @if (isSending)
+                {
+                    <span>? Sending...</span>
+                }
+                else
+                {
+                    <span>?? Send Command</span>
+                }
+            </button>
+            <button class="btn btn-secondary" @onclick="SendAgain" disabled="@(string.IsNullOrEmpty(lastIdempotencyKey) || isSending)">
+                ?? Send Again (Same Key)
+            </button>
+        </div>
+
+        <!-- Command Result -->
+        @if (lastCommandResult != null)
+        {
+            <div class="command-result @(lastCommandResult.IsSuccess ? "success" : "error")">
+                <div class="result-header">
+                    <strong>@(lastCommandResult.IsSuccess ? "?" : "?") Command @(lastCommandResult.IsSuccess ? "Completed" : "Failed")</strong>
+                </div>
+                <div class="result-body">
+                    <div class="result-item">
+                        <label>Command:</label>
+                        <span>@lastCommandResult.Command</span>
+                    </div>
+                    <div class="result-item">
+                        <label>Latency:</label>
+                        <span class="latency">@lastCommandResult.LatencyMs ms</span>
+                    </div>
+                    <div class="result-item">
+                        <label>Correlation ID:</label>
+                        <span class="correlation-id">@lastCommandResult.CorrelationId</span>
+                    </div>
+                    <div class="result-item">
+                        <label>Idempotency Key:</label>
+                        <span class="idempotency-key">@lastCommandResult.IdempotencyKey</span>
+                    </div>
+                    @if (!string.IsNullOrEmpty(lastCommandResult.Result))
+                    {
+                        <div class="result-item full-width">
+                            <label>Result:</label>
+                            <pre class="result-data">@lastCommandResult.Result</pre>
+                        </div>
+                    }
+                    <div class="result-item">
+                        <label>Timestamp:</label>
+                        <span>@lastCommandResult.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Recent Commands History -->
+    <div class="history-section">
+        <div class="section-header">
+            <h3>?? Recent Commands</h3>
+            <button class="btn btn-sm" @onclick="RefreshHistory">?? Refresh</button>
+        </div>
+
+        @if (recentCommands.Any())
+        {
+            <div class="commands-list">
+                @foreach (var cmd in recentCommands)
+                {
+                    <div class="command-item @cmd.Status.ToLower()">
+                        <div class="command-header">
+                            <strong>@GetCommandStatusIcon(cmd.Status) @cmd.Command</strong>
+                            <span class="timestamp">@FormatTimeAgo(cmd.CreatedUtc)</span>
+                        </div>
+                        <div class="command-details">
+                            <span>Latency: @(cmd.LatencyMs?.ToString() ?? "N/A") ms</span>
+                            <span>Key: @cmd.IdempotencyKey[..8]...</span>
+                        </div>
+                        @if (!string.IsNullOrEmpty(cmd.Result) && cmd.Status == "Failed")
+                        {
+                            <div class="command-error">@cmd.Result</div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-data">
+                <p>?? No command history</p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public Device Device { get; set; } = default!;
+    [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter] public EventCallback OnCommandSent { get; set; }
+    [Parameter] public EventCallback<(string Title, string Message, string Type)> OnNotification { get; set; }
+
+    private List<TelemetryDataPoint> telemetryData = new();
+    private List<DeviceCommand> recentCommands = new();
+    private string selectedCommand = "";
+    private string idempotencyKey = "";
+    private string lastIdempotencyKey = "";
+    private bool isSending = false;
+    private CommandResult? lastCommandResult = null;
+    private HubConnection? hubConnection;
+    private System.Threading.Timer? refreshTimer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        GenerateNewKey();
+        await LoadTelemetry();
+        await LoadCommandHistory();
+        await SetupSignalR();
+        
+        // Auto-refresh telemetry every 2 seconds
+        refreshTimer = new System.Threading.Timer(async _ =>
+        {
+            await LoadTelemetry();
+            await InvokeAsync(StateHasChanged);
+        }, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(2));
+    }
+
+    private async Task SetupSignalR()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/controlhub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        // Listen for telemetry updates
+        hubConnection.On<DeviceTelemetry>("DeviceTelemetryReceived", async (telemetry) =>
+        {
+            if (telemetry.DeviceId == Device.Id)
+            {
+                await LoadTelemetry();
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+
+        // Listen for command completions
+        hubConnection.On<DeviceCommand>("CommandCompleted", async (command) =>
+        {
+            if (command.DeviceId == Device.Id)
+            {
+                await LoadCommandHistory();
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    private async Task LoadTelemetry()
+    {
+        await using var db = await DbFactory.CreateDbContextAsync();
+        var oneMinuteAgo = DateTime.UtcNow.AddMinutes(-1);
+        
+        var telemetry = await db.Telemetry
+            .Where(t => t.DeviceId == Device.Id && t.TimestampUtc >= oneMinuteAgo)
+            .OrderBy(t => t.TimestampUtc)
+            .ToListAsync();
+
+        telemetryData = telemetry.Select(t =>
+        {
+            try
+            {
+                using var doc = System.Text.Json.JsonDocument.Parse(t.Json);
+                var root = doc.RootElement;
+                
+                return new TelemetryDataPoint
+                {
+                    Timestamp = t.TimestampUtc,
+                    Temperature = root.TryGetProperty("temperature", out var temp) && temp.ValueKind == System.Text.Json.JsonValueKind.Number 
+                        ? temp.GetDouble() 
+                        : 0,
+                    CpuUsage = root.TryGetProperty("cpuUsage", out var cpu) && cpu.ValueKind == System.Text.Json.JsonValueKind.Number 
+                        ? cpu.GetDouble() 
+                        : 0,
+                    MemoryUsage = root.TryGetProperty("memoryUsage", out var mem) && mem.ValueKind == System.Text.Json.JsonValueKind.Number 
+                        ? mem.GetDouble() 
+                        : 0
+                };
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "Failed to parse telemetry for device {DeviceId}: {Json}", Device.Id, t.Json);
+                return new TelemetryDataPoint
+                {
+                    Timestamp = t.TimestampUtc,
+                    Temperature = 0,
+                    CpuUsage = 0,
+                    MemoryUsage = 0
+                };
+            }
+        }).ToList();
+    }
+
+    private async Task LoadCommandHistory()
+    {
+        await using var db = await DbFactory.CreateDbContextAsync();
+        recentCommands = await db.Commands
+            .Where(c => c.DeviceId == Device.Id)
+            .OrderByDescending(c => c.CreatedUtc)
+            .Take(10)
+            .ToListAsync();
+    }
+
+    private void GenerateNewKey()
+    {
+        idempotencyKey = Guid.NewGuid().ToString();
+    }
+
+    private async Task SendCommand()
+    {
+        if (string.IsNullOrEmpty(selectedCommand)) return;
+
+        isSending = true;
+        lastIdempotencyKey = idempotencyKey;
+        var startTime = DateTime.UtcNow;
+
+        try
+        {
+            // Use CommandRouter to properly enqueue the command
+            var result = await CommandRouter.EnqueueAsync(
+                Device.Id, 
+                idempotencyKey, 
+                selectedCommand, 
+                CancellationToken.None);
+            
+            if (result.Status == CommandEnqueueResultStatus.QueueFull)
+            {
+                throw new InvalidOperationException("Command queue is full. Please try again later.");
+            }
+            
+            var commandId = result.CommandId;
+
+            // Wait for command to be processed by device (with timeout)
+            var timeout = DateTime.UtcNow.AddSeconds(12);
+            DeviceCommand? processedCommand = null;
+            
+            while (DateTime.UtcNow < timeout)
+            {
+                await Task.Delay(300);
+                
+                // Reload command to check status
+                await using var checkDb = await DbFactory.CreateDbContextAsync();
+                processedCommand = await checkDb.Commands
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(c => c.Id == commandId);
+                
+                if (processedCommand != null && processedCommand.Status != "Pending")
+                {
+                    break;
+                }
+            }
+
+            if (processedCommand != null)
+            {
+                var endTime = DateTime.UtcNow;
+                lastCommandResult = new CommandResult
+                {
+                    Command = processedCommand.Command,
+                    LatencyMs = processedCommand.LatencyMs ?? (long)(endTime - startTime).TotalMilliseconds,
+                    CorrelationId = processedCommand.Id.ToString(),
+                    IdempotencyKey = processedCommand.IdempotencyKey,
+                    IsSuccess = processedCommand.Status == "Completed",
+                    Result = processedCommand.Result,
+                    Timestamp = DateTime.UtcNow
+                };
+
+                await OnNotification.InvokeAsync((
+                    processedCommand.Status == "Completed" ? "? Command Sent" : "? Command Failed",
+                    $"{Device.Name}: {processedCommand.Command}",
+                    processedCommand.Status == "Completed" ? "success" : "error"
+                ));
+            }
+
+            await LoadCommandHistory();
+            await OnCommandSent.InvokeAsync();
+            GenerateNewKey(); // Generate new key for next command
+        }
+        catch (Exception ex)
+        {
+            lastCommandResult = new CommandResult
+            {
+                Command = selectedCommand,
+                LatencyMs = (long)(DateTime.UtcNow - startTime).TotalMilliseconds,
+                CorrelationId = Guid.NewGuid().ToString(),
+                IdempotencyKey = idempotencyKey,
+                IsSuccess = false,
+                Result = ex.Message,
+                Timestamp = DateTime.UtcNow
+            };
+
+            await OnNotification.InvokeAsync((
+                "? Command Error",
+                $"Failed to send command: {ex.Message}",
+                "error"
+            ));
+        }
+        finally
+        {
+            isSending = false;
+        }
+    }
+
+    private async Task SendAgain()
+    {
+        idempotencyKey = lastIdempotencyKey;
+        await SendCommand();
+    }
+
+    private async Task RefreshTelemetry()
+    {
+        await LoadTelemetry();
+    }
+
+    private async Task RefreshHistory()
+    {
+        await LoadCommandHistory();
+    }
+
+    private MarkupString GetTypeIcon(DeviceType type)
+    {
+        return (MarkupString)(type switch
+        {
+            DeviceType.Display => "&#x1F5A5;&#xFE0F;",
+            DeviceType.Codec => "&#x1F4F9;",
+            DeviceType.Switcher => "&#x1F500;",
+            DeviceType.Sensor => "&#x1F4E1;",
+            _ => "&#x1F527;"
+        });
+    }
+
+    private string GetStatusClass(DeviceStatus status)
+    {
+        return status == DeviceStatus.Online ? "status-online" : "status-offline";
+    }
+
+    private MarkupString GetCommandStatusIcon(string status)
+    {
+        return (MarkupString)(status switch
+        {
+            "Completed" => "&#x2705;",
+            "Failed" => "&#x274C;",
+            "Pending" => "&#x23F3;",
+            _ => "&#x2753;"
+        });
+    }
+
+    private string FormatTimeAgo(DateTime dateTime)
+    {
+        var timeSpan = DateTime.UtcNow - dateTime;
+        if (timeSpan.TotalSeconds < 60) return $"{(int)timeSpan.TotalSeconds}s ago";
+        if (timeSpan.TotalMinutes < 60) return $"{(int)timeSpan.TotalMinutes}m ago";
+        if (timeSpan.TotalHours < 24) return $"{(int)timeSpan.TotalHours}h ago";
+        return $"{(int)timeSpan.TotalDays}d ago";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        refreshTimer?.Dispose();
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+
+    public class TelemetryDataPoint
+    {
+        public DateTime Timestamp { get; set; }
+        public double Temperature { get; set; }
+        public double CpuUsage { get; set; }
+        public double MemoryUsage { get; set; }
+    }
+
+    private class CommandResult
+    {
+        public string Command { get; set; } = "";
+        public long LatencyMs { get; set; }
+        public string CorrelationId { get; set; } = "";
+        public string IdempotencyKey { get; set; } = "";
+        public bool IsSuccess { get; set; }
+        public string? Result { get; set; }
+        public DateTime Timestamp { get; set; }
+    }
+}

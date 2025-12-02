@@ -1,0 +1,1070 @@
+{
+	"info": {
+		"_postman_id": "9c0f19b3-4753-4db8-8518-ab90749b44ef",
+		"name": "Cyviz Device API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3350328"
+	},
+	"item": [
+		{
+			"name": "Devices",
+			"item": [
+				{
+					"name": "Get Device by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"etag\", jsonData.etag);",
+									"    console.log(\"ETag saved: \" + jsonData.etag);",
+									"    console.log(\"Current Location: \" + jsonData.device.location);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/devices/device-01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"devices",
+								"device-01"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Device by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{apiKey}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/devices/device-01",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"devices",
+										"device-01"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Dec 2025 09:50:42 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"device\": {\n        \"id\": \"device-01\",\n        \"name\": \"DisplayWall-1\",\n        \"type\": \"Switcher\",\n        \"protocol\": \"TcpLine\",\n        \"capabilities\": [\n            \"Ping\",\n            \"GetStatus\",\n            \"Reboot\"\n        ],\n        \"status\": \"Online\",\n        \"lastSeenUtc\": \"2025-12-02T09:50:41.7471732\",\n        \"firmware\": \"v1.2.3\",\n        \"location\": \"UpdatedRoom\",\n        \"rowVersion\": null\n    },\n    \"telemetry\": [\n        {\n            \"id\": \"e6508822-be30-4611-a0f9-2acc455178e2\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:41.7471748\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:41.7452006Z\\\",\\\"temperature\\\":36.731081698479855,\\\"cpuUsage\\\":12.96937813539677,\\\"memoryUsage\\\":31.03692072867608}\"\n        },\n        {\n            \"id\": \"83369168-8888-4a33-b5bf-376370dbcb03\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:38.7281608\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:38.7264209Z\\\",\\\"temperature\\\":38.3676206493096,\\\"cpuUsage\\\":13.835615196274276,\\\"memoryUsage\\\":39.748439873850643}\"\n        },\n        {\n            \"id\": \"6ccc71ea-d726-4ffe-a3d8-674ec83e1812\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:35.7108483\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:35.7087111Z\\\",\\\"temperature\\\":23.313623447256223,\\\"cpuUsage\\\":66.587402152790744,\\\"memoryUsage\\\":30.975694669125474}\"\n        },\n        {\n            \"id\": \"bd50e742-8958-46ff-9c3f-14d8ad763816\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:32.6898335\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:32.6877476Z\\\",\\\"temperature\\\":30.855035757357349,\\\"cpuUsage\\\":94.995066117133376,\\\"memoryUsage\\\":38.293811027565525}\"\n        },\n        {\n            \"id\": \"aa1f857e-dba5-499a-9e55-21542321dfed\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:29.6783927\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:29.6765429Z\\\",\\\"temperature\\\":27.657496994038659,\\\"cpuUsage\\\":56.195245651360537,\\\"memoryUsage\\\":60.3916093194387}\"\n        },\n        {\n            \"id\": \"ca7fcee3-f4b7-4b20-8c28-3a7b8684f41a\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:26.656039\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:26.6487993Z\\\",\\\"temperature\\\":31.699612817420601,\\\"cpuUsage\\\":23.762869271391583,\\\"memoryUsage\\\":57.295763162848459}\"\n        },\n        {\n            \"id\": \"e8a9859d-cb30-46ff-8df0-6ce3e17ba43e\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:23.6388959\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:23.6370708Z\\\",\\\"temperature\\\":28.762699481794535,\\\"cpuUsage\\\":33.457408009812269,\\\"memoryUsage\\\":69.535450943084797}\"\n        },\n        {\n            \"id\": \"5b868bc5-280d-4395-92a8-8e335e1f04a0\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:20.6140261\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:20.6116928Z\\\",\\\"temperature\\\":27.155850610439952,\\\"cpuUsage\\\":0.23944888672058351,\\\"memoryUsage\\\":61.0615639551567}\"\n        },\n        {\n            \"id\": \"2e79b1c5-85f1-4877-895a-e0da9c19e483\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:17.599631\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:17.5967626Z\\\",\\\"temperature\\\":32.319286114715759,\\\"cpuUsage\\\":97.711294464552097,\\\"memoryUsage\\\":43.898553084347931}\"\n        },\n        {\n            \"id\": \"cce21c2a-3ea1-45ca-90a9-3a7464bdf451\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:14.5858838\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:14.5836833Z\\\",\\\"temperature\\\":24.691348835524973,\\\"cpuUsage\\\":49.520189755863711,\\\"memoryUsage\\\":50.663138613533057}\"\n        },\n        {\n            \"id\": \"32b0ae77-59ae-4ef2-ae67-0a0c334e8ab2\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:11.5612791\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:11.5587715Z\\\",\\\"temperature\\\":39.887010346284342,\\\"cpuUsage\\\":43.396196819896225,\\\"memoryUsage\\\":36.76328720614508}\"\n        },\n        {\n            \"id\": \"c6572682-98f9-4831-be9b-fcda32ad3edc\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:08.5437897\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:08.5419906Z\\\",\\\"temperature\\\":35.047482063028099,\\\"cpuUsage\\\":92.406884869377606,\\\"memoryUsage\\\":43.13139443414876}\"\n        },\n        {\n            \"id\": \"29953112-824c-4db4-9c1b-1985b24c9d69\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:05.5333462\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:05.5311106Z\\\",\\\"temperature\\\":29.189473839677877,\\\"cpuUsage\\\":78.918691204707997,\\\"memoryUsage\\\":68.21375753648141}\"\n        },\n        {\n            \"id\": \"c2376d67-e295-4fc5-9093-30e9ea78e7ae\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:02.5162795\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:02.5130233Z\\\",\\\"temperature\\\":37.001974061133332,\\\"cpuUsage\\\":96.1794173711952,\\\"memoryUsage\\\":47.82039736602605}\"\n        },\n        {\n            \"id\": \"c5638420-bfef-4061-8bc8-5bff9ba4ace4\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:59.5050672\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:59.5028303Z\\\",\\\"temperature\\\":24.439836852060985,\\\"cpuUsage\\\":53.868297198764715,\\\"memoryUsage\\\":31.857463198886773}\"\n        },\n        {\n            \"id\": \"959d7bec-98d6-4559-9454-f272d977fef1\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:56.4937858\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:56.4891641Z\\\",\\\"temperature\\\":26.896330511753156,\\\"cpuUsage\\\":7.9350971284973486,\\\"memoryUsage\\\":69.161676213695387}\"\n        },\n        {\n            \"id\": \"b69ec0c2-585c-4f85-a0d8-7b6dbe52d122\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:53.4749845\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:53.4729143Z\\\",\\\"temperature\\\":20.403085433097591,\\\"cpuUsage\\\":17.325464312218518,\\\"memoryUsage\\\":62.119098592017586}\"\n        },\n        {\n            \"id\": \"ec43e466-7984-4447-a68d-173320873dc9\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:50.4568972\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:50.4546906Z\\\",\\\"temperature\\\":29.029239395376081,\\\"cpuUsage\\\":74.391246444107026,\\\"memoryUsage\\\":48.085790906024819}\"\n        },\n        {\n            \"id\": \"619a22e5-6db9-4a42-a24e-f5485261a569\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:47.4283562\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:47.4249Z\\\",\\\"temperature\\\":39.329118905311667,\\\"cpuUsage\\\":75.10702701090095,\\\"memoryUsage\\\":48.344397121361865}\"\n        },\n        {\n            \"id\": \"2d4eed30-6900-4d49-9ca1-955de3a4dace\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:44.4179938\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:44.414772Z\\\",\\\"temperature\\\":31.661042799056162,\\\"cpuUsage\\\":32.483044126178896,\\\"memoryUsage\\\":66.615247818784326}\"\n        },\n        {\n            \"id\": \"fb1df21f-3e4d-4537-b27d-41cf43ce7a94\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:41.4066947\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:41.4050108Z\\\",\\\"temperature\\\":27.286175506469093,\\\"cpuUsage\\\":93.406892806526344,\\\"memoryUsage\\\":55.643766635441537}\"\n        },\n        {\n            \"id\": \"400881de-05d6-4578-88b9-b4d7fdb5e651\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:38.396534\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:38.3946703Z\\\",\\\"temperature\\\":35.464497684582298,\\\"cpuUsage\\\":32.270970117903651,\\\"memoryUsage\\\":47.215653936842955}\"\n        },\n        {\n            \"id\": \"06e0a614-78db-4368-997e-5bc6b311d51e\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:35.0387564\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:35.0351534Z\\\",\\\"temperature\\\":29.253296392780037,\\\"cpuUsage\\\":86.166841455746095,\\\"memoryUsage\\\":37.00075904546334}\"\n        },\n        {\n            \"id\": \"c8df178b-53de-49f6-ad40-68f31c516d09\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:32.0234467\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:32.0154458Z\\\",\\\"temperature\\\":20.967282010537033,\\\"cpuUsage\\\":13.054823595697551,\\\"memoryUsage\\\":57.286606411753993}\"\n        },\n        {\n            \"id\": \"f1c3eb40-eb53-4d47-8482-0343456cee5b\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:29.0100849\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:29.0084021Z\\\",\\\"temperature\\\":31.243673904625581,\\\"cpuUsage\\\":29.938223363598659,\\\"memoryUsage\\\":37.939999251915886}\"\n        },\n        {\n            \"id\": \"58292a1d-36b7-463c-ac10-ab823b10a350\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:26.0000246\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:25.9973522Z\\\",\\\"temperature\\\":32.443675556931069,\\\"cpuUsage\\\":11.69901901699818,\\\"memoryUsage\\\":32.189607110448833}\"\n        },\n        {\n            \"id\": \"38226836-26dd-4073-8060-91a66bad1d8c\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:22.9795341\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:22.9769178Z\\\",\\\"temperature\\\":21.830358717298679,\\\"cpuUsage\\\":3.1846956280318084,\\\"memoryUsage\\\":40.583909172180249}\"\n        },\n        {\n            \"id\": \"ea840aa0-a934-48fa-8ba1-cc4c371d980c\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:19.9470232\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:19.937563Z\\\",\\\"temperature\\\":28.358962511788484,\\\"cpuUsage\\\":57.582451246079543,\\\"memoryUsage\\\":55.822617204916128}\"\n        },\n        {\n            \"id\": \"f694d9c3-fa1a-419f-a8f4-1ac1892ad83e\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:16.924313\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:16.9213399Z\\\",\\\"temperature\\\":38.297600748102646,\\\"cpuUsage\\\":16.42064355183479,\\\"memoryUsage\\\":51.400903995531792}\"\n        },\n        {\n            \"id\": \"528d5802-cc42-4ebe-ba64-575bbb8781be\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:13.9138831\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:13.9122808Z\\\",\\\"temperature\\\":26.125404765419677,\\\"cpuUsage\\\":99.427541706936736,\\\"memoryUsage\\\":55.059895812874458}\"\n        },\n        {\n            \"id\": \"6c725378-26ac-4164-a14c-4fe8fac55a32\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:10.8994898\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:10.893458Z\\\",\\\"temperature\\\":24.35693663154618,\\\"cpuUsage\\\":10.253682504101459,\\\"memoryUsage\\\":63.514628558072189}\"\n        },\n        {\n            \"id\": \"f5c3ee46-a773-469a-97ac-ee65e03e375f\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:07.8841428\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:07.8817997Z\\\",\\\"temperature\\\":30.97516068166804,\\\"cpuUsage\\\":32.691435024409678,\\\"memoryUsage\\\":33.776554809062446}\"\n        },\n        {\n            \"id\": \"c3245a0d-c257-44cd-a12c-d593a480bfff\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:04.8527592\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:04.8487976Z\\\",\\\"temperature\\\":36.742939254802245,\\\"cpuUsage\\\":54.037229336313949,\\\"memoryUsage\\\":60.556642648420834}\"\n        },\n        {\n            \"id\": \"5d39267e-b06d-4076-9194-edee0d126178\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:01.8326546\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:01.830001Z\\\",\\\"temperature\\\":23.711206446672822,\\\"cpuUsage\\\":99.882576124875754,\\\"memoryUsage\\\":30.136877430881867}\"\n        },\n        {\n            \"id\": \"015e8265-28b1-4102-a69e-1916320e1e38\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:58.665367\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:58.479136Z\\\",\\\"temperature\\\":30.304057448070267,\\\"cpuUsage\\\":51.551794588759591,\\\"memoryUsage\\\":39.276415918698682}\"\n        },\n        {\n            \"id\": \"e9845c71-3844-4afc-93c5-f8b1fee59689\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:55.4587744\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:55.4555679Z\\\",\\\"temperature\\\":26.22435917949878,\\\"cpuUsage\\\":29.416326122920889,\\\"memoryUsage\\\":44.436392740670307}\"\n        },\n        {\n            \"id\": \"a859938c-54ef-46e3-8898-613f0a21a4a6\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:52.4245102\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:52.4214388Z\\\",\\\"temperature\\\":28.305221553436901,\\\"cpuUsage\\\":23.318391841772325,\\\"memoryUsage\\\":32.357377599831928}\"\n        },\n        {\n            \"id\": \"ea438551-a95e-4cfa-998e-0a98adb96eac\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:49.4115475\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:49.4100546Z\\\",\\\"temperature\\\":36.252223223686428,\\\"cpuUsage\\\":98.870576864260258,\\\"memoryUsage\\\":48.65788909213196}\"\n        },\n        {\n            \"id\": \"ac76bbf4-7099-4af5-b399-beee64e76f53\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:46.4056271\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:46.4037752Z\\\",\\\"temperature\\\":34.816571080201854,\\\"cpuUsage\\\":58.279028554058129,\\\"memoryUsage\\\":33.753032564346029}\"\n        },\n        {\n            \"id\": \"17b1ed7c-cd81-46b7-8074-9d6f3f0d6ec1\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:43.3963752\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:43.0406004Z\\\",\\\"temperature\\\":24.23547596329054,\\\"cpuUsage\\\":79.753891998546862,\\\"memoryUsage\\\":67.080302267128857}\"\n        },\n        {\n            \"id\": \"886f388b-1967-47bc-9c22-2b01ebc07535\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:40.0146793\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:40.0121941Z\\\",\\\"temperature\\\":21.648597808009146,\\\"cpuUsage\\\":96.819582952779655,\\\"memoryUsage\\\":52.956725238351382}\"\n        },\n        {\n            \"id\": \"26e09eee-77a4-4c66-9648-4f386309b988\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:36.2808785\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:36.2410554Z\\\",\\\"temperature\\\":25.051319820838167,\\\"cpuUsage\\\":77.902041932264083,\\\"memoryUsage\\\":41.513797395826607}\"\n        },\n        {\n            \"id\": \"b383c933-3550-43cb-8403-ea5bfb8ea8d5\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:52.0276013\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:52.0250706Z\\\",\\\"temperature\\\":24.180285284600977,\\\"cpuUsage\\\":73.189800930718391,\\\"memoryUsage\\\":38.317222277648476}\"\n        },\n        {\n            \"id\": \"2f0395de-740b-4b00-8707-cc20c6be2de3\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:49.0052788\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:49.0031996Z\\\",\\\"temperature\\\":37.582212605902185,\\\"cpuUsage\\\":15.408892740695912,\\\"memoryUsage\\\":57.129955190903566}\"\n        },\n        {\n            \"id\": \"c1e11fa1-d443-4f7a-979c-c58707dacac3\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:45.987562\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:45.9843228Z\\\",\\\"temperature\\\":33.836064540550133,\\\"cpuUsage\\\":18.719765075728468,\\\"memoryUsage\\\":38.697934402619303}\"\n        },\n        {\n            \"id\": \"7e748f0c-3617-4676-91f5-e1e2a096c2b5\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:42.9738715\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:42.9707383Z\\\",\\\"temperature\\\":30.50567458435691,\\\"cpuUsage\\\":36.512696379036726,\\\"memoryUsage\\\":32.773034988669437}\"\n        },\n        {\n            \"id\": \"ae70863b-b172-44d4-b390-199af592583d\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:39.9581586\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:39.9562571Z\\\",\\\"temperature\\\":34.598882253023866,\\\"cpuUsage\\\":62.771473271004027,\\\"memoryUsage\\\":42.759880912238188}\"\n        },\n        {\n            \"id\": \"ef29bb7a-8da6-468f-8201-f713a86262e1\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:36.9493326\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:36.9475849Z\\\",\\\"temperature\\\":27.501976707756363,\\\"cpuUsage\\\":58.580161075780367,\\\"memoryUsage\\\":66.464363989738075}\"\n        },\n        {\n            \"id\": \"2e76bb5e-2843-4740-bf96-7d4785bf097f\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:33.9324766\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:33.930295Z\\\",\\\"temperature\\\":32.386129436654009,\\\"cpuUsage\\\":71.485916886031418,\\\"memoryUsage\\\":37.417593703665297}\"\n        },\n        {\n            \"id\": \"c776d0c3-fefd-43e8-bf5a-32a67875b45f\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:30.914353\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:30.9123766Z\\\",\\\"temperature\\\":30.964928582189032,\\\"cpuUsage\\\":98.316335703516245,\\\"memoryUsage\\\":64.829293042568807}\"\n        }\n    ],\n    \"etag\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Device (Fetch ETag)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const jsonData = pm.response.json();",
+									"    pm.environment.set('etag', jsonData.etag);",
+									"    console.log('✓ ETag saved: ' + jsonData.etag);",
+									"    console.log('Device ID: ' + jsonData.device.id);",
+									"    console.log('Current Location: ' + jsonData.device.location);",
+									"}",
+									"",
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has ETag', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('etag');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/devices/device-01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"devices",
+								"device-01"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Device (Fetch ETag)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{apiKey}}"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/devices/device-01",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"devices",
+										"device-01"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Dec 2025 09:50:31 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"device\": {\n        \"id\": \"device-01\",\n        \"name\": \"DisplayWall-1\",\n        \"type\": \"Switcher\",\n        \"protocol\": \"TcpLine\",\n        \"capabilities\": [\n            \"Ping\",\n            \"GetStatus\",\n            \"Reboot\"\n        ],\n        \"status\": \"Online\",\n        \"lastSeenUtc\": \"2025-12-02T09:50:29.6783891\",\n        \"firmware\": \"v1.2.3\",\n        \"location\": \"UpdatedRoom\",\n        \"rowVersion\": null\n    },\n    \"telemetry\": [\n        {\n            \"id\": \"aa1f857e-dba5-499a-9e55-21542321dfed\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:29.6783927\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:29.6765429Z\\\",\\\"temperature\\\":27.657496994038659,\\\"cpuUsage\\\":56.195245651360537,\\\"memoryUsage\\\":60.3916093194387}\"\n        },\n        {\n            \"id\": \"ca7fcee3-f4b7-4b20-8c28-3a7b8684f41a\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:26.656039\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:26.6487993Z\\\",\\\"temperature\\\":31.699612817420601,\\\"cpuUsage\\\":23.762869271391583,\\\"memoryUsage\\\":57.295763162848459}\"\n        },\n        {\n            \"id\": \"e8a9859d-cb30-46ff-8df0-6ce3e17ba43e\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:23.6388959\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:23.6370708Z\\\",\\\"temperature\\\":28.762699481794535,\\\"cpuUsage\\\":33.457408009812269,\\\"memoryUsage\\\":69.535450943084797}\"\n        },\n        {\n            \"id\": \"5b868bc5-280d-4395-92a8-8e335e1f04a0\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:20.6140261\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:20.6116928Z\\\",\\\"temperature\\\":27.155850610439952,\\\"cpuUsage\\\":0.23944888672058351,\\\"memoryUsage\\\":61.0615639551567}\"\n        },\n        {\n            \"id\": \"2e79b1c5-85f1-4877-895a-e0da9c19e483\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:17.599631\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:17.5967626Z\\\",\\\"temperature\\\":32.319286114715759,\\\"cpuUsage\\\":97.711294464552097,\\\"memoryUsage\\\":43.898553084347931}\"\n        },\n        {\n            \"id\": \"cce21c2a-3ea1-45ca-90a9-3a7464bdf451\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:14.5858838\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:14.5836833Z\\\",\\\"temperature\\\":24.691348835524973,\\\"cpuUsage\\\":49.520189755863711,\\\"memoryUsage\\\":50.663138613533057}\"\n        },\n        {\n            \"id\": \"32b0ae77-59ae-4ef2-ae67-0a0c334e8ab2\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:11.5612791\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:11.5587715Z\\\",\\\"temperature\\\":39.887010346284342,\\\"cpuUsage\\\":43.396196819896225,\\\"memoryUsage\\\":36.76328720614508}\"\n        },\n        {\n            \"id\": \"c6572682-98f9-4831-be9b-fcda32ad3edc\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:08.5437897\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:08.5419906Z\\\",\\\"temperature\\\":35.047482063028099,\\\"cpuUsage\\\":92.406884869377606,\\\"memoryUsage\\\":43.13139443414876}\"\n        },\n        {\n            \"id\": \"29953112-824c-4db4-9c1b-1985b24c9d69\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:05.5333462\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:05.5311106Z\\\",\\\"temperature\\\":29.189473839677877,\\\"cpuUsage\\\":78.918691204707997,\\\"memoryUsage\\\":68.21375753648141}\"\n        },\n        {\n            \"id\": \"c2376d67-e295-4fc5-9093-30e9ea78e7ae\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:50:02.5162795\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:50:02.5130233Z\\\",\\\"temperature\\\":37.001974061133332,\\\"cpuUsage\\\":96.1794173711952,\\\"memoryUsage\\\":47.82039736602605}\"\n        },\n        {\n            \"id\": \"c5638420-bfef-4061-8bc8-5bff9ba4ace4\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:59.5050672\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:59.5028303Z\\\",\\\"temperature\\\":24.439836852060985,\\\"cpuUsage\\\":53.868297198764715,\\\"memoryUsage\\\":31.857463198886773}\"\n        },\n        {\n            \"id\": \"959d7bec-98d6-4559-9454-f272d977fef1\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:56.4937858\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:56.4891641Z\\\",\\\"temperature\\\":26.896330511753156,\\\"cpuUsage\\\":7.9350971284973486,\\\"memoryUsage\\\":69.161676213695387}\"\n        },\n        {\n            \"id\": \"b69ec0c2-585c-4f85-a0d8-7b6dbe52d122\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:53.4749845\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:53.4729143Z\\\",\\\"temperature\\\":20.403085433097591,\\\"cpuUsage\\\":17.325464312218518,\\\"memoryUsage\\\":62.119098592017586}\"\n        },\n        {\n            \"id\": \"ec43e466-7984-4447-a68d-173320873dc9\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:50.4568972\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:50.4546906Z\\\",\\\"temperature\\\":29.029239395376081,\\\"cpuUsage\\\":74.391246444107026,\\\"memoryUsage\\\":48.085790906024819}\"\n        },\n        {\n            \"id\": \"619a22e5-6db9-4a42-a24e-f5485261a569\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:47.4283562\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:47.4249Z\\\",\\\"temperature\\\":39.329118905311667,\\\"cpuUsage\\\":75.10702701090095,\\\"memoryUsage\\\":48.344397121361865}\"\n        },\n        {\n            \"id\": \"2d4eed30-6900-4d49-9ca1-955de3a4dace\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:44.4179938\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:44.414772Z\\\",\\\"temperature\\\":31.661042799056162,\\\"cpuUsage\\\":32.483044126178896,\\\"memoryUsage\\\":66.615247818784326}\"\n        },\n        {\n            \"id\": \"fb1df21f-3e4d-4537-b27d-41cf43ce7a94\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:41.4066947\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:41.4050108Z\\\",\\\"temperature\\\":27.286175506469093,\\\"cpuUsage\\\":93.406892806526344,\\\"memoryUsage\\\":55.643766635441537}\"\n        },\n        {\n            \"id\": \"400881de-05d6-4578-88b9-b4d7fdb5e651\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:38.396534\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:38.3946703Z\\\",\\\"temperature\\\":35.464497684582298,\\\"cpuUsage\\\":32.270970117903651,\\\"memoryUsage\\\":47.215653936842955}\"\n        },\n        {\n            \"id\": \"06e0a614-78db-4368-997e-5bc6b311d51e\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:35.0387564\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:35.0351534Z\\\",\\\"temperature\\\":29.253296392780037,\\\"cpuUsage\\\":86.166841455746095,\\\"memoryUsage\\\":37.00075904546334}\"\n        },\n        {\n            \"id\": \"c8df178b-53de-49f6-ad40-68f31c516d09\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:32.0234467\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:32.0154458Z\\\",\\\"temperature\\\":20.967282010537033,\\\"cpuUsage\\\":13.054823595697551,\\\"memoryUsage\\\":57.286606411753993}\"\n        },\n        {\n            \"id\": \"f1c3eb40-eb53-4d47-8482-0343456cee5b\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:29.0100849\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:29.0084021Z\\\",\\\"temperature\\\":31.243673904625581,\\\"cpuUsage\\\":29.938223363598659,\\\"memoryUsage\\\":37.939999251915886}\"\n        },\n        {\n            \"id\": \"58292a1d-36b7-463c-ac10-ab823b10a350\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:26.0000246\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:25.9973522Z\\\",\\\"temperature\\\":32.443675556931069,\\\"cpuUsage\\\":11.69901901699818,\\\"memoryUsage\\\":32.189607110448833}\"\n        },\n        {\n            \"id\": \"38226836-26dd-4073-8060-91a66bad1d8c\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:22.9795341\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:22.9769178Z\\\",\\\"temperature\\\":21.830358717298679,\\\"cpuUsage\\\":3.1846956280318084,\\\"memoryUsage\\\":40.583909172180249}\"\n        },\n        {\n            \"id\": \"ea840aa0-a934-48fa-8ba1-cc4c371d980c\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:19.9470232\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:19.937563Z\\\",\\\"temperature\\\":28.358962511788484,\\\"cpuUsage\\\":57.582451246079543,\\\"memoryUsage\\\":55.822617204916128}\"\n        },\n        {\n            \"id\": \"f694d9c3-fa1a-419f-a8f4-1ac1892ad83e\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:16.924313\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:16.9213399Z\\\",\\\"temperature\\\":38.297600748102646,\\\"cpuUsage\\\":16.42064355183479,\\\"memoryUsage\\\":51.400903995531792}\"\n        },\n        {\n            \"id\": \"528d5802-cc42-4ebe-ba64-575bbb8781be\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:13.9138831\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:13.9122808Z\\\",\\\"temperature\\\":26.125404765419677,\\\"cpuUsage\\\":99.427541706936736,\\\"memoryUsage\\\":55.059895812874458}\"\n        },\n        {\n            \"id\": \"6c725378-26ac-4164-a14c-4fe8fac55a32\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:10.8994898\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:10.893458Z\\\",\\\"temperature\\\":24.35693663154618,\\\"cpuUsage\\\":10.253682504101459,\\\"memoryUsage\\\":63.514628558072189}\"\n        },\n        {\n            \"id\": \"f5c3ee46-a773-469a-97ac-ee65e03e375f\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:07.8841428\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:07.8817997Z\\\",\\\"temperature\\\":30.97516068166804,\\\"cpuUsage\\\":32.691435024409678,\\\"memoryUsage\\\":33.776554809062446}\"\n        },\n        {\n            \"id\": \"c3245a0d-c257-44cd-a12c-d593a480bfff\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:04.8527592\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:04.8487976Z\\\",\\\"temperature\\\":36.742939254802245,\\\"cpuUsage\\\":54.037229336313949,\\\"memoryUsage\\\":60.556642648420834}\"\n        },\n        {\n            \"id\": \"5d39267e-b06d-4076-9194-edee0d126178\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:49:01.8326546\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:49:01.830001Z\\\",\\\"temperature\\\":23.711206446672822,\\\"cpuUsage\\\":99.882576124875754,\\\"memoryUsage\\\":30.136877430881867}\"\n        },\n        {\n            \"id\": \"015e8265-28b1-4102-a69e-1916320e1e38\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:58.665367\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:58.479136Z\\\",\\\"temperature\\\":30.304057448070267,\\\"cpuUsage\\\":51.551794588759591,\\\"memoryUsage\\\":39.276415918698682}\"\n        },\n        {\n            \"id\": \"e9845c71-3844-4afc-93c5-f8b1fee59689\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:55.4587744\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:55.4555679Z\\\",\\\"temperature\\\":26.22435917949878,\\\"cpuUsage\\\":29.416326122920889,\\\"memoryUsage\\\":44.436392740670307}\"\n        },\n        {\n            \"id\": \"a859938c-54ef-46e3-8898-613f0a21a4a6\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:52.4245102\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:52.4214388Z\\\",\\\"temperature\\\":28.305221553436901,\\\"cpuUsage\\\":23.318391841772325,\\\"memoryUsage\\\":32.357377599831928}\"\n        },\n        {\n            \"id\": \"ea438551-a95e-4cfa-998e-0a98adb96eac\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:49.4115475\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:49.4100546Z\\\",\\\"temperature\\\":36.252223223686428,\\\"cpuUsage\\\":98.870576864260258,\\\"memoryUsage\\\":48.65788909213196}\"\n        },\n        {\n            \"id\": \"ac76bbf4-7099-4af5-b399-beee64e76f53\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:46.4056271\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:46.4037752Z\\\",\\\"temperature\\\":34.816571080201854,\\\"cpuUsage\\\":58.279028554058129,\\\"memoryUsage\\\":33.753032564346029}\"\n        },\n        {\n            \"id\": \"17b1ed7c-cd81-46b7-8074-9d6f3f0d6ec1\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:43.3963752\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:43.0406004Z\\\",\\\"temperature\\\":24.23547596329054,\\\"cpuUsage\\\":79.753891998546862,\\\"memoryUsage\\\":67.080302267128857}\"\n        },\n        {\n            \"id\": \"886f388b-1967-47bc-9c22-2b01ebc07535\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:40.0146793\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:40.0121941Z\\\",\\\"temperature\\\":21.648597808009146,\\\"cpuUsage\\\":96.819582952779655,\\\"memoryUsage\\\":52.956725238351382}\"\n        },\n        {\n            \"id\": \"26e09eee-77a4-4c66-9648-4f386309b988\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:48:36.2808785\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:48:36.2410554Z\\\",\\\"temperature\\\":25.051319820838167,\\\"cpuUsage\\\":77.902041932264083,\\\"memoryUsage\\\":41.513797395826607}\"\n        },\n        {\n            \"id\": \"b383c933-3550-43cb-8403-ea5bfb8ea8d5\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:52.0276013\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:52.0250706Z\\\",\\\"temperature\\\":24.180285284600977,\\\"cpuUsage\\\":73.189800930718391,\\\"memoryUsage\\\":38.317222277648476}\"\n        },\n        {\n            \"id\": \"2f0395de-740b-4b00-8707-cc20c6be2de3\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:49.0052788\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:49.0031996Z\\\",\\\"temperature\\\":37.582212605902185,\\\"cpuUsage\\\":15.408892740695912,\\\"memoryUsage\\\":57.129955190903566}\"\n        },\n        {\n            \"id\": \"c1e11fa1-d443-4f7a-979c-c58707dacac3\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:45.987562\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:45.9843228Z\\\",\\\"temperature\\\":33.836064540550133,\\\"cpuUsage\\\":18.719765075728468,\\\"memoryUsage\\\":38.697934402619303}\"\n        },\n        {\n            \"id\": \"7e748f0c-3617-4676-91f5-e1e2a096c2b5\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:42.9738715\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:42.9707383Z\\\",\\\"temperature\\\":30.50567458435691,\\\"cpuUsage\\\":36.512696379036726,\\\"memoryUsage\\\":32.773034988669437}\"\n        },\n        {\n            \"id\": \"ae70863b-b172-44d4-b390-199af592583d\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:39.9581586\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:39.9562571Z\\\",\\\"temperature\\\":34.598882253023866,\\\"cpuUsage\\\":62.771473271004027,\\\"memoryUsage\\\":42.759880912238188}\"\n        },\n        {\n            \"id\": \"ef29bb7a-8da6-468f-8201-f713a86262e1\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:36.9493326\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:36.9475849Z\\\",\\\"temperature\\\":27.501976707756363,\\\"cpuUsage\\\":58.580161075780367,\\\"memoryUsage\\\":66.464363989738075}\"\n        },\n        {\n            \"id\": \"2e76bb5e-2843-4740-bf96-7d4785bf097f\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:33.9324766\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:33.930295Z\\\",\\\"temperature\\\":32.386129436654009,\\\"cpuUsage\\\":71.485916886031418,\\\"memoryUsage\\\":37.417593703665297}\"\n        },\n        {\n            \"id\": \"c776d0c3-fefd-43e8-bf5a-32a67875b45f\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:30.914353\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:30.9123766Z\\\",\\\"temperature\\\":30.964928582189032,\\\"cpuUsage\\\":98.316335703516245,\\\"memoryUsage\\\":64.829293042568807}\"\n        },\n        {\n            \"id\": \"5f2b05cf-c290-4013-aeab-e37ed6a65733\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:27.8998474\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:27.8981015Z\\\",\\\"temperature\\\":28.526085090128298,\\\"cpuUsage\\\":3.3016960926221639,\\\"memoryUsage\\\":58.865612696122909}\"\n        },\n        {\n            \"id\": \"7780dca1-93a9-40a2-99ea-3e760ab6e374\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:24.8877061\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:24.8858564Z\\\",\\\"temperature\\\":22.624089311112034,\\\"cpuUsage\\\":89.505588474491631,\\\"memoryUsage\\\":40.027448774400852}\"\n        },\n        {\n            \"id\": \"b53002db-b779-4185-b79a-70c95e3ea993\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:21.8782723\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:21.8759907Z\\\",\\\"temperature\\\":24.028425703096122,\\\"cpuUsage\\\":10.240647177793816,\\\"memoryUsage\\\":65.994374815166367}\"\n        },\n        {\n            \"id\": \"0a4082bd-d1b2-45e2-a985-5e64e76d896a\",\n            \"deviceId\": \"device-01\",\n            \"timestampUtc\": \"2025-12-02T09:47:18.8585054\",\n            \"json\": \"{\\\"timestamp\\\":\\\"2025-12-02T09:47:18.8554291Z\\\",\\\"temperature\\\":22.400035351819895,\\\"cpuUsage\\\":93.922035375971774,\\\"memoryUsage\\\":61.966297952950114}\"\n        }\n    ],\n    \"etag\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Devices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"devices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Devices",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{apiKey}}"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/devices",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"devices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Dec 2025 09:49:39 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"items\": [\n        {\n            \"id\": \"device-01\",\n            \"name\": \"DisplayWall-1\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:38.3965315\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"UpdatedRoom\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-02\",\n            \"name\": \"DisplayWall-2\",\n            \"type\": \"Display\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.8345386\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-03\",\n            \"name\": \"DisplayWall-3\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.8182079\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-04\",\n            \"name\": \"DisplayWall-4\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.5383668\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-05\",\n            \"name\": \"DisplayWall-5\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.9437394\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-06\",\n            \"name\": \"DisplayWall-6\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:38.2250489\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-07\",\n            \"name\": \"DisplayWall-7\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.4976568\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-08\",\n            \"name\": \"DisplayWall-8\",\n            \"type\": \"Codec\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:38.5922292\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-09\",\n            \"name\": \"DisplayWall-9\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.3829332\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-10\",\n            \"name\": \"DisplayWall-10\",\n            \"type\": \"Sensor\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:38.5934695\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-11\",\n            \"name\": \"DisplayWall-11\",\n            \"type\": \"Codec\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.8345386\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-12\",\n            \"name\": \"DisplayWall-12\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:38.4741008\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-13\",\n            \"name\": \"DisplayWall-13\",\n            \"type\": \"Sensor\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:38.5201694\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-14\",\n            \"name\": \"DisplayWall-14\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.4140727\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-15\",\n            \"name\": \"DisplayWall-15\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.2731166\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-16\",\n            \"name\": \"DisplayWall-16\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.8028694\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-17\",\n            \"name\": \"DisplayWall-17\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.9915346\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-18\",\n            \"name\": \"DisplayWall-18\",\n            \"type\": \"Codec\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:38.4279824\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-19\",\n            \"name\": \"DisplayWall-19\",\n            \"type\": \"Sensor\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.7732203\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-20\",\n            \"name\": \"DisplayWall-20\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:37.3075615\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        }\n    ],\n    \"next\": \"device-20\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Devices - Paginated",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/devices?top=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"devices"
+							],
+							"query": [
+								{
+									"key": "top",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Devices - Paginated",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{apiKey}}"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/devices?top=5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"devices"
+									],
+									"query": [
+										{
+											"key": "top",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Dec 2025 09:49:53 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"items\": [\n        {\n            \"id\": \"device-01\",\n            \"name\": \"DisplayWall-1\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:53.4749799\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"UpdatedRoom\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-02\",\n            \"name\": \"DisplayWall-2\",\n            \"type\": \"Display\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:52.9365088\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-03\",\n            \"name\": \"DisplayWall-3\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:53.0697021\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-04\",\n            \"name\": \"DisplayWall-4\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:52.6031065\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-05\",\n            \"name\": \"DisplayWall-5\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:49:53.0078176\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        }\n    ],\n    \"next\": \"device-05\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Devices - Filter by Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/devices?status=Online",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"devices"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "Online"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Devices - Filter by Status",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{apiKey}}"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/devices?status=Online",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"devices"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "Online"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Dec 2025 09:50:04 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"items\": [\n        {\n            \"id\": \"device-01\",\n            \"name\": \"DisplayWall-1\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.5162777\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"UpdatedRoom\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-02\",\n            \"name\": \"DisplayWall-2\",\n            \"type\": \"Display\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:01.9779061\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-03\",\n            \"name\": \"DisplayWall-3\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.1317399\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-04\",\n            \"name\": \"DisplayWall-4\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:04.6801589\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-05\",\n            \"name\": \"DisplayWall-5\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.061389\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-06\",\n            \"name\": \"DisplayWall-6\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.3739381\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-07\",\n            \"name\": \"DisplayWall-7\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:04.6693303\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-08\",\n            \"name\": \"DisplayWall-8\",\n            \"type\": \"Codec\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.7544403\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-09\",\n            \"name\": \"DisplayWall-9\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:04.5456357\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-10\",\n            \"name\": \"DisplayWall-10\",\n            \"type\": \"Sensor\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.9049476\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-11\",\n            \"name\": \"DisplayWall-11\",\n            \"type\": \"Codec\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:01.9783281\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-12\",\n            \"name\": \"DisplayWall-12\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.5785719\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-13\",\n            \"name\": \"DisplayWall-13\",\n            \"type\": \"Sensor\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.6559114\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-14\",\n            \"name\": \"DisplayWall-14\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:04.5749989\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-15\",\n            \"name\": \"DisplayWall-15\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:04.4395892\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-16\",\n            \"name\": \"DisplayWall-16\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.1257877\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-17\",\n            \"name\": \"DisplayWall-17\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.0932336\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-18\",\n            \"name\": \"DisplayWall-18\",\n            \"type\": \"Codec\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:02.5312451\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-19\",\n            \"name\": \"DisplayWall-19\",\n            \"type\": \"Sensor\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:01.9708218\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-20\",\n            \"name\": \"DisplayWall-20\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:04.4538026\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        }\n    ],\n    \"next\": \"device-20\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Devices - Search",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:3001/api/devices?search=Wall",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"devices"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Wall"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Devices - Search",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{apiKey}}"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/devices?search=Wall",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"devices"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "Wall"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Dec 2025 09:50:17 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"items\": [\n        {\n            \"id\": \"device-01\",\n            \"name\": \"DisplayWall-1\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:14.5858805\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"UpdatedRoom\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-02\",\n            \"name\": \"DisplayWall-2\",\n            \"type\": \"Display\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:17.0882626\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-03\",\n            \"name\": \"DisplayWall-3\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:17.1902264\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-04\",\n            \"name\": \"DisplayWall-4\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:16.7596625\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-05\",\n            \"name\": \"DisplayWall-5\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:17.1263456\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-06\",\n            \"name\": \"DisplayWall-6\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:17.4747774\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-07\",\n            \"name\": \"DisplayWall-7\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:16.7541557\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-08\",\n            \"name\": \"DisplayWall-8\",\n            \"type\": \"Codec\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:14.8517746\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-09\",\n            \"name\": \"DisplayWall-9\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:16.597134\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-10\",\n            \"name\": \"DisplayWall-10\",\n            \"type\": \"Sensor\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:14.9780259\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-11\",\n            \"name\": \"DisplayWall-11\",\n            \"type\": \"Codec\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:17.253198\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-12\",\n            \"name\": \"DisplayWall-12\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:14.6482545\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-13\",\n            \"name\": \"DisplayWall-13\",\n            \"type\": \"Sensor\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:14.7410618\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-14\",\n            \"name\": \"DisplayWall-14\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:16.6435423\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-15\",\n            \"name\": \"DisplayWall-15\",\n            \"type\": \"Display\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:16.5037974\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-16\",\n            \"name\": \"DisplayWall-16\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:17.205961\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-17\",\n            \"name\": \"DisplayWall-17\",\n            \"type\": \"Display\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:17.1580567\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-18\",\n            \"name\": \"DisplayWall-18\",\n            \"type\": \"Codec\",\n            \"protocol\": \"HttpJson\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:14.6332508\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-19\",\n            \"name\": \"DisplayWall-19\",\n            \"type\": \"Sensor\",\n            \"protocol\": \"TcpLine\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:17.0432224\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        },\n        {\n            \"id\": \"device-20\",\n            \"name\": \"DisplayWall-20\",\n            \"type\": \"Switcher\",\n            \"protocol\": \"EdgeSignalR\",\n            \"capabilities\": [\n                \"Ping\",\n                \"GetStatus\",\n                \"Reboot\"\n            ],\n            \"status\": \"Online\",\n            \"lastSeenUtc\": \"2025-12-02T09:50:16.5339821\",\n            \"firmware\": \"v1.2.3\",\n            \"location\": \"ControlRoomA\",\n            \"rowVersion\": null\n        }\n    ],\n    \"next\": \"device-20\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Commands",
+			"item": [
+				{
+					"name": "Send Command - Reboot",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const key = pm.variables.replaceIn('{{$guid}}');",
+									"pm.environment.set('commandIdempotencyKey', key);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 202) {",
+									"    const data = pm.response.json();",
+									"    pm.environment.set('lastCommandId', data.commandId);",
+									"    console.log('Command ID:', data.commandId);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idempotencyKey\": \"{{commandIdempotencyKey}}\",\n  \"command\": \"Reboot\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:3001/api/devices/device-01/commands",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"devices",
+								"device-01",
+								"commands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Command Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const cmd = pm.response.json();",
+									"    console.log('Status:', cmd.status);",
+									"    console.log('Result:', cmd.result);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:3001/api/devices/device-01/commands/{{lastCommandId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"devices",
+								"device-01",
+								"commands",
+								"{{lastCommandId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Device Heartbeat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"etag\", jsonData.etag);",
+							"    console.log(\"ETag saved: \" + jsonData.etag);",
+							"    console.log(\"Current Location: \" + jsonData.device.location);",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Api-Key",
+						"value": "{{apiKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/devices/device-11/heartbeat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"devices",
+						"device-11",
+						"heartbeat"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Device Heartbeat",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/devices/device-11/heartbeat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"devices",
+								"device-11",
+								"heartbeat"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 02 Dec 2025 09:52:03 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"deviceId\": \"device-11\",\n    \"status\": \"Online\",\n    \"lastSeenUtc\": \"2025-12-02T09:52:03.5093511Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Device (with ETag)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const baseUrl = pm.environment.get('baseUrl');",
+							"const apiKey = pm.environment.get('apiKey');",
+							"const deviceId = pm.environment.get('deviceId') || 'device-01';",
+							"",
+							"pm.sendRequest({",
+							"    url: `${baseUrl}/api/devices/${deviceId}`,",
+							"    method: 'GET',",
+							"    header: { 'X-Api-Key': apiKey }",
+							"}, function (err, response) {",
+							"    if (!err && response.code === 200) {",
+							"        const data = response.json();",
+							"        pm.environment.set('etag', data.etag);",
+							"        console.log('✓ Auto-fetched ETag: ' + data.etag);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"if (pm.response.code === 200) {",
+							"    const jsonData = pm.response.json();",
+							"    console.log('✓ Updated Location: ' + jsonData.location);",
+							"}",
+							"",
+							"if (pm.response.code === 412) {",
+							"    console.error('❌ ETag mismatch - device was modified');",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-Api-Key",
+						"value": "{{apiKey}}"
+					},
+					{
+						"key": "If-Match",
+						"value": "{{etag}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"device-01\",\n  \"name\": \"DisplayWall-1\",\n  \"type\": 0,\n  \"status\": 0,\n  \"protocol\": 1,\n  \"capabilities\": [\"Ping\", \"GetStatus\", \"Reboot\"],\n  \"firmware\": \"v1.2.3\",\n  \"location\": \"NewLocation\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/devices/device-01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"devices",
+						"device-01"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Device (with ETag)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "If-Match",
+								"value": "{{etag}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"device-01\",\n  \"name\": \"DisplayWall-1\",\n  \"type\": 0,\n  \"status\": 0,\n  \"protocol\": 1,\n  \"capabilities\": [\"Ping\", \"GetStatus\", \"Reboot\"],\n  \"firmware\": \"v1.2.3\",\n  \"location\": \"NewLocation\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/devices/device-01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"devices",
+								"device-01"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 02 Dec 2025 09:51:04 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"device-01\",\n    \"name\": \"DisplayWall-1\",\n    \"type\": \"Switcher\",\n    \"protocol\": \"TcpLine\",\n    \"capabilities\": [\n        \"Ping\",\n        \"GetStatus\",\n        \"Reboot\"\n    ],\n    \"status\": \"Online\",\n    \"lastSeenUtc\": \"2025-12-02T09:51:02.8475784\",\n    \"firmware\": \"v1.2.3\",\n    \"location\": \"NewLocation\",\n    \"rowVersion\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Device Location",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Location was updated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"ControlRoomB\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-Api-Key",
+						"value": "{{apiKey}}"
+					},
+					{
+						"key": "If-Match",
+						"value": "{{etag}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"device-01\",\n  \"name\": \"DisplayWall-1\",\n  \"type\": 0,\n  \"status\": 0,\n  \"protocol\": 1,\n  \"capabilities\": [\"Ping\", \"GetStatus\", \"Reboot\"],\n  \"firmware\": \"v1.2.3\",\n  \"location\": \"ControlRoomB\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/devices/device-01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"devices",
+						"device-01"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Device Location",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "If-Match",
+								"value": "{{etag}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"device-01\",\n  \"name\": \"DisplayWall-1\",\n  \"type\": 0,\n  \"status\": 0,\n  \"protocol\": 1,\n  \"capabilities\": [\"Ping\", \"GetStatus\", \"Reboot\"],\n  \"firmware\": \"v1.2.3\",\n  \"location\": \"ControlRoomB\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/devices/device-01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"devices",
+								"device-01"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 02 Dec 2025 09:51:45 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"device-01\",\n    \"name\": \"DisplayWall-1\",\n    \"type\": \"Switcher\",\n    \"protocol\": \"TcpLine\",\n    \"capabilities\": [\n        \"Ping\",\n        \"GetStatus\",\n        \"Reboot\"\n    ],\n    \"status\": \"Online\",\n    \"lastSeenUtc\": \"2025-12-02T09:51:45.1186643\",\n    \"firmware\": \"v1.2.3\",\n    \"location\": \"ControlRoomB\",\n    \"rowVersion\": null\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "local-dev-key",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-Api-Key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

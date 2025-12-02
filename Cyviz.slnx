@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Cyviz.UnitTests/Cyviz.UnitTests.csproj" />
+  <Project Path="Cyviz/Cyviz.csproj" />
+  <Project Path="Cyviz.IntegrationTests/Cyviz.IntegrationTests.csproj" />
+</Solution>
