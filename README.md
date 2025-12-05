@@ -1,4 +1,4 @@
-# Cyviz - Device Control System
+﻿# Cyviz - Device Control System
 
 A real-time device control system built with Blazor Server, SignalR, and Entity Framework Core.
 
@@ -6,11 +6,11 @@ A real-time device control system built with Blazor Server, SignalR, and Entity 
 
 Cyviz is an IoT control platform for managing display walls, codecs, and cameras in control rooms. It provides:
 
-- ??? **Real-time Control**: Send commands to devices via SignalR
-- ?? **Live Telemetry**: Monitor device status and metrics in real-time
-- ??? **SQLite Database**: Persistent storage with EF Core migrations
-- ?? **Command Pipeline**: Resilient command routing with retry logic
-- ?? **Chaos Testing**: Built-in chaos engineering for resilience testing
+- **Real-time Control**: Send commands to devices via SignalR
+- **Live Telemetry**: Monitor device status and metrics in real-time
+- **SQLite Database**: Persistent storage with EF Core migrations
+- **Command Pipeline**: Resilient command routing with retry logic
+- **Chaos Testing**: Built-in chaos engineering for resilience testing
 
 ## Quick Start
 
@@ -33,19 +33,19 @@ dotnet run --project Cyviz
 ```
 
 Application will start at:
-- **Dashboard**: `http://localhost:3000/dashboard` ? **NEW!**
+- **Dashboard**: `http://localhost:3000/dashboard` **NEW!**
 - **Main App**: `https://localhost:3001`
 
-### ??? New Dashboard
+### New Dashboard
 
 Access the comprehensive device control dashboard at **http://localhost:3000/dashboard**
 
 **Features:**
-- ?? Devices table with filters, sorting, and pagination
-- ?? Device detail drawer with live telemetry charts
-- ? Command execution with visible idempotency keys
-- ?? Real-time toast notifications
-- ?? Live telemetry visualization (last minute)
+- Devices table with filters, sorting, and pagination
+- Device detail drawer with live telemetry charts
+- Command execution with visible idempotency keys
+- Real-time toast notifications
+- Live telemetry visualization (last minute)
 
 See [DASHBOARD-QUICKSTART.md](DASHBOARD-QUICKSTART.md) for details.
 
@@ -58,7 +58,7 @@ Database is automatically created and migrated on first run:
 
 ## Documentation
 
-?? **Complete Documentation:**
+**Complete Documentation:**
 
 - **[Architecture Overview](ARCHITECTURE.md)** - System architecture and communication flow
 - **[Data Flow Guide](docs/DATA-FLOW.md)** - How Blazor components access the database
@@ -69,7 +69,7 @@ Database is automatically created and migrated on first run:
 
 #### Blazor Server Architecture
 ```
-Browser (HTML/JS) ???SignalR??? Server (C# Components) ???EF Core??? SQLite
+Browser (HTML/JS) — SignalR — Server (C# Components) — EF Core — SQLite
 ```
 
 All Razor component code runs **on the server**. The browser only displays HTML and sends events via SignalR.
@@ -94,33 +94,33 @@ protected override async Task OnInitializedAsync()
 
 ```
 Cyviz/
-??? Program.cs              # Application entry point & DI configuration
-??? Infrastructure/
-?   ??? AppDbContext.cs     # EF Core database context
-?   ??? AppDbContextFactory.cs
-?   ??? SeedData.cs         # Database seeding
-?   ??? Migrations/         # EF Core migrations
-??? Domain/
-?   ??? Models.cs           # Device, DeviceCommand, Telemetry entities
-?   ??? Protocols.cs        # Protocol adapters
-??? Application/
-?   ??? CommandRouter.cs    # Background service for command routing
-?   ??? DeviceStatusMonitor.cs
-?   ??? ValidationExtensions.cs
-??? SignalR/
-?   ??? ControlHub.cs       # Operator communication hub
-?   ??? DeviceHub.cs        # Device communication hub
-?   ??? EdgeSimulator.cs    # Device simulation
-??? Api/
-?   ??? DevicesController.cs # REST API endpoints
-?   ??? ApiKeyMiddleware.cs
-?   ??? MetricsEndpoint.cs
-??? Pages/                  # Blazor components (*.razor files)
+├─ Program.cs              # Application entry point & DI configuration
+├─ Infrastructure/
+│  ├─ AppDbContext.cs     # EF Core database context
+│  ├─ AppDbContextFactory.cs
+│  ├─ SeedData.cs         # Database seeding
+│  └─ Migrations/         # EF Core migrations
+├─ Domain/
+│  ├─ Models.cs           # Device, DeviceCommand, Telemetry entities
+│  └─ Protocols.cs        # Protocol adapters
+├─ Application/
+│  ├─ CommandRouter.cs    # Background service for command routing
+│  ├─ DeviceStatusMonitor.cs
+│  └─ ValidationExtensions.cs
+├─ SignalR/
+│  ├─ ControlHub.cs       # Operator communication hub
+│  ├─ DeviceHub.cs        # Device communication hub
+│  └─ EdgeSimulator.cs    # Device simulation
+├─ Api/
+│  ├─ DevicesController.cs # REST API endpoints
+│  ├─ ApiKeyMiddleware.cs
+│  └─ MetricsEndpoint.cs
+└─ Pages/                  # Blazor components (*.razor files)
 ```
 
 ## Features
 
-### ??? 1. Dashboard (NEW!)
+### 1. Dashboard (NEW!)
 **Real-time device control dashboard at http://localhost:3000/dashboard**
 
 - **Devices Table**:
@@ -151,9 +151,9 @@ See: [DASHBOARD-README.md](DASHBOARD-README.md) | [DASHBOARD-QUICKSTART.md](DASH
 
 ### 3. Command Pipeline
 ```
-Operator ? REST API ? Database ? CommandRouter ? DeviceHub ? Device
-                          ?
-                    SignalR Broadcast ? All Operators
+Operator → REST API → Database → CommandRouter → DeviceHub → Device
+                          ↓
+                   SignalR Broadcast → All Operators
 ```
 
 ### 4. Real-Time Updates
@@ -208,22 +208,22 @@ GET    /metrics                   # System metrics
 
 **ControlHub** (for operators):
 ```csharp
-// Server ? Client
+// Server → Client
 "DeviceStatusChanged"     // Device status update
 "CommandCompleted"        // Command execution result
 "DeviceTelemetryReceived" // New telemetry data
 
-// Client ? Server
+// Client → Server
 "ExecuteCommand"          // Send command to device
 "SubscribeToDevice"       // Subscribe to device updates
 ```
 
 **DeviceHub** (for devices):
 ```csharp
-// Server ? Client
+// Server → Client
 "ExecuteCommand"          // Command to execute
 
-// Client ? Server
+// Client → Server
 "ReportTelemetry"         // Send telemetry data
 "ReportCommandResult"     // Report command execution result
 "Heartbeat"              // Keep-alive ping
@@ -255,9 +255,9 @@ GET    /metrics                   # System metrics
 
 ```sql
 Devices (Id, Name, Type, Protocol, Status, LastSeenUtc, Capabilities, ...)
-  ? One-to-Many
+  → One-to-Many
 Commands (Id, DeviceId, Command, Status, Result, IdempotencyKey, ...)
-  ? One-to-Many
+  → One-to-Many
 Telemetry (Id, DeviceId, TimestampUtc, Json)
 ```
 
@@ -380,4 +380,4 @@ MIT License - see LICENSE file for details
 
 ---
 
-**Built with ?? using Blazor Server, SignalR, and Entity Framework Core**
+**Built with love using Blazor Server, SignalR, and Entity Framework Core**
