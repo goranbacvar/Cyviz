@@ -1,8 +1,8 @@
-# ?? Cyviz Documentation Index
+# Cyviz Documentation Index
 
 Welcome to the Cyviz documentation! This comprehensive guide explains how Razor components in the browser communicate with the SQLite database in your Blazor Server application.
 
-## ?? Viewing in Browser
+## Viewing in Browser
 
 **Best way to view documentation:**
 
@@ -10,11 +10,11 @@ Welcome to the Cyviz documentation! This comprehensive guide explains how Razor 
 2. **OR** use markdown preview in VS Code (`Ctrl+Shift+V`)
 3. **OR** see [HOW-TO-VIEW-DOCS.md](../HOW-TO-VIEW-DOCS.md) for all options
 
-## ?? All Documentation Files
+## All Documentation Files
 
 | Document | Purpose | Time | Level |
 |----------|---------|------|-------|
-| **[Cheat Sheet](CHEAT-SHEET.md)** ? | Quick reference card | 5 min | All |
+| **[Cheat Sheet](CHEAT-SHEET.md)** | Quick reference card | 5 min | All |
 | **[Quick Reference](QUICK-REFERENCE.md)** | Code patterns & examples | 10 min | Beginner |
 | **[Visual Flow](VISUAL-FLOW.md)** | Step-by-step diagrams | 15 min | Beginner |
 | **[Data Flow Guide](DATA-FLOW.md)** | Complete explanation | 30 min | Intermediate |
@@ -24,19 +24,19 @@ Welcome to the Cyviz documentation! This comprehensive guide explains how Razor 
 | **[Documentation Summary](../DOCUMENTATION-SUMMARY.md)** | What was created | 5 min | All |
 | **[How to View Docs](../HOW-TO-VIEW-DOCS.md)** | Browser viewing guide | 2 min | All |
 
-## ?? Documentation Structure
+## Documentation Structure
 
 ### For Beginners
 
 Start here if you're new to Blazor Server or want to understand the basics:
 
-1. **[Quick Reference](QUICK-REFERENCE.md)** ? START HERE
+1. **[Quick Reference](QUICK-REFERENCE.md)** — START HERE
    - Common code patterns
    - Copy-paste examples
    - Best practices checklist
    - 10-minute read
 
-2. **[Visual Flow](VISUAL-FLOW.md)** ??
+2. **[Visual Flow](VISUAL-FLOW.md)**
    - Step-by-step diagrams
    - Complete data journey from browser to database
    - ASCII art diagrams
@@ -46,14 +46,14 @@ Start here if you're new to Blazor Server or want to understand the basics:
 
 Once you understand the basics, dive deeper:
 
-3. **[Data Flow Guide](DATA-FLOW.md)** ??
+3. **[Data Flow Guide](DATA-FLOW.md)**
    - Detailed explanation of Blazor Server architecture
    - CRUD operation examples
    - Real-time SignalR integration
    - Performance considerations
    - 30-minute read
 
-4. **[Architecture Diagrams](ARCHITECTURE-DIAGRAMS.md)** ???
+4. **[Architecture Diagrams](ARCHITECTURE-DIAGRAMS.md)**
    - System overview
    - Component architecture
    - SignalR communication flows
@@ -65,14 +65,14 @@ Once you understand the basics, dive deeper:
 
 Deep technical documentation:
 
-5. **[Architecture Overview](../ARCHITECTURE.md)** ??
+5. **[Architecture Overview](../ARCHITECTURE.md)**
    - High-level system design
    - Communication patterns
    - Security model
    - Protocol adapters
    - 20-minute read
 
-## ?? Quick Navigation
+## Quick Navigation
 
 ### By Topic
 
@@ -90,24 +90,24 @@ Deep technical documentation:
 ### By Use Case
 
 #### "I want to display data from the database"
-? [Quick Reference - Pattern 1: Read-Only List](QUICK-REFERENCE.md#pattern-1-read-only-list)
+[Quick Reference - Pattern 1: Read-Only List](QUICK-REFERENCE.md#pattern-1-read-only-list)
 
 #### "I want to create a form to add data"
-? [Quick Reference - Pattern 2: Create Form](QUICK-REFERENCE.md#pattern-2-create-form)
+[Quick Reference - Pattern 2: Create Form](QUICK-REFERENCE.md#pattern-2-create-form)
 
 #### "I want to edit existing data"
-? [Quick Reference - Pattern 3: Edit Form](QUICK-REFERENCE.md#pattern-3-edit-form-with-parameter)
+[Quick Reference - Pattern 3: Edit Form](QUICK-REFERENCE.md#pattern-3-edit-form-with-parameter)
 
 #### "I want real-time updates"
-? [Quick Reference - Pattern 5: Real-Time Updates](QUICK-REFERENCE.md#pattern-5-real-time-updates-with-signalr)
+[Quick Reference - Pattern 5: Real-Time Updates](QUICK-REFERENCE.md#pattern-5-real-time-updates-with-signalr)
 
 #### "I want to understand how it all works"
-? [Visual Flow](VISUAL-FLOW.md#complete-round-trip-journey)
+[Visual Flow](VISUAL-FLOW.md#complete-round-trip-journey)
 
 #### "My component isn't updating after database changes"
-? [Quick Reference - Pitfall 3: Not Calling StateHasChanged](QUICK-REFERENCE.md#pitfall-3-not-calling-statehaschanged)
+[Quick Reference - Pitfall 3: Not Calling StateHasChanged](QUICK-REFERENCE.md#pitfall-3-not-calling-statehaschanged)
 
-## ?? Reading Paths
+## Reading Paths
 
 ### Path 1: Quick Start (30 minutes)
 For developers who want to start coding immediately:
@@ -129,16 +129,16 @@ For developers debugging an issue:
 
 1. [Quick Reference - Troubleshooting](QUICK-REFERENCE.md#debugging) (5 min)
 2. [Quick Reference - Common Pitfalls](QUICK-REFERENCE.md#common-pitfalls) (10 min)
-3. If still stuck ? [Data Flow Guide - Security Model](DATA-FLOW.md#security-model)
+3. If still stuck — [Data Flow Guide - Security Model](DATA-FLOW.md#security-model)
 
-## ?? Key Concepts Summary
+## Key Concepts Summary
 
 ### Core Principle
 
 **Blazor Server = Server-Side Execution**
 
 ```
-Browser (Displays HTML) ??SignalR?? Server (Runs C# Code) ??EF Core?? SQLite
+Browser (Displays HTML) — SignalR — Server (Runs C# Code) — EF Core — SQLite
 ```
 
 ### The Three Layers
@@ -186,7 +186,7 @@ Browser (Displays HTML) ??SignalR?? Server (Runs C# Code) ??EF Core?? SQLite
 
 **This code runs entirely on the server. The browser only sees the rendered HTML.**
 
-## ?? Learning Resources
+## Learning Resources
 
 ### Official Documentation
 - [Blazor Documentation](https://docs.microsoft.com/aspnet/core/blazor/)
@@ -201,29 +201,29 @@ Browser (Displays HTML) ??SignalR?? Server (Runs C# Code) ??EF Core?? SQLite
 - Blazor University: https://blazor-university.com/
 - .NET YouTube Channel: https://www.youtube.com/@dotnet
 
-## ?? Getting Help
+## Getting Help
 
 ### Common Questions
 
 **Q: How does the browser communicate with the database?**  
 A: It doesn't directly. The browser sends events to the server via SignalR, the server queries the database, then sends HTML back to the browser.  
-? See: [Visual Flow](VISUAL-FLOW.md)
+See: [Visual Flow](VISUAL-FLOW.md)
 
 **Q: Where does my @code block execute?**  
 A: On the server, not in the browser.  
-? See: [Data Flow Guide - Key Concepts](DATA-FLOW.md#1-server-side-execution)
+See: [Data Flow Guide - Key Concepts](DATA-FLOW.md#1-server-side-execution)
 
 **Q: Why use IDbContextFactory instead of DbContext?**  
 A: Blazor Server needs proper lifetime management for concurrent requests.  
-? See: [Quick Reference - DbContext Lifetime](QUICK-REFERENCE.md#dbcontext-lifetime-management)
+See: [Quick Reference - DbContext Lifetime](QUICK-REFERENCE.md#dbcontext-lifetime-management)
 
 **Q: How do I update the UI when data changes?**  
 A: Call `StateHasChanged()` or `await InvokeAsync(StateHasChanged)`.  
-? See: [Quick Reference - Pitfall 3](QUICK-REFERENCE.md#pitfall-3-not-calling-statehaschanged)
+See: [Quick Reference - Pitfall 3](QUICK-REFERENCE.md#pitfall-3-not-calling-statehaschanged)
 
 **Q: Can I use Blazor Server with other databases?**  
 A: Yes! Just change the provider in Program.cs (SQL Server, PostgreSQL, MySQL, etc.).  
-? See: [Data Flow Guide - Configuration](DATA-FLOW.md#configuration)
+See: [Data Flow Guide - Configuration](DATA-FLOW.md#configuration)
 
 ### Still Stuck?
 
@@ -235,17 +235,17 @@ A: Yes! Just change the provider in Program.cs (SQL Server, PostgreSQL, MySQL, e
    - Relevant code snippet
    - What you've tried
 
-## ?? Documentation Statistics
+## Documentation Statistics
 
 | Document | Purpose | Read Time | Complexity |
 |----------|---------|-----------|------------|
-| [Quick Reference](QUICK-REFERENCE.md) | Code patterns | 10 min | ? Beginner |
-| [Visual Flow](VISUAL-FLOW.md) | Step-by-step diagrams | 15 min | ? Beginner |
-| [Data Flow Guide](DATA-FLOW.md) | Comprehensive explanation | 30 min | ?? Intermediate |
-| [Architecture Diagrams](ARCHITECTURE-DIAGRAMS.md) | System architecture | 45 min | ??? Advanced |
-| [Architecture Overview](../ARCHITECTURE.md) | High-level design | 20 min | ?? Intermediate |
+| [Quick Reference](QUICK-REFERENCE.md) | Code patterns | 10 min | Beginner |
+| [Visual Flow](VISUAL-FLOW.md) | Step-by-step diagrams | 15 min | Beginner |
+| [Data Flow Guide](DATA-FLOW.md) | Comprehensive explanation | 30 min | Intermediate |
+| [Architecture Diagrams](ARCHITECTURE-DIAGRAMS.md) | System architecture | 45 min | Advanced |
+| [Architecture Overview](../ARCHITECTURE.md) | High-level design | 20 min | Intermediate |
 
-## ?? Next Steps
+## Next Steps
 
 ### For New Users
 1. Read [Quick Reference](QUICK-REFERENCE.md)
@@ -262,7 +262,7 @@ A: Yes! Just change the provider in Program.cs (SQL Server, PostgreSQL, MySQL, e
 2. Understand the command pipeline
 3. Contribute to the project
 
-## ?? Feedback
+## Feedback
 
 Found an error? Have a suggestion?
 - Open an issue on GitHub
@@ -271,6 +271,6 @@ Found an error? Have a suggestion?
 
 ---
 
-**Happy coding! ??**
+**Happy coding!**
 
 Last updated: 2024-01-15

@@ -1,5 +1,13 @@
 <Solution>
   <Project Path="Cyviz.UnitTests/Cyviz.UnitTests.csproj" />
   <Project Path="Cyviz/Cyviz.csproj" />
+  <Folder Name="/Solution Items/">
+    <File Path="docs/ARCHITECTURE-DIAGRAMS.md" />
+    <File Path="docs/CHEAT-SHEET.md" />
+    <File Path="docs/DATA-FLOW.md" />
+    <File Path="docs/INDEX.md" />
+    <File Path="docs/QUICK-REFERENCE.md" />
+    <File Path="docs/VISUAL-FLOW.md" />
+  </Folder>
   <Project Path="Cyviz.IntegrationTests/Cyviz.IntegrationTests.csproj" />
 </Solution>
